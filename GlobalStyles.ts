@@ -1,0 +1,68 @@
+/* fonts */
+export const FontFamily = {
+    sFProDisplay: "SF Pro Display",
+    poppinsMedium: "Poppins-Medium",
+    poppinsRegular: "Poppins-Regular",
+    airbnbCerealApp: "Airbnb Cereal App",
+    poppinsBold: "Poppins-Bold",
+    sFProText: "SF Pro Text",
+    material: "material",
+    poppinsBlack: "Poppins-Black",
+    interBold: "Inter-Bold",
+};
+/* font sizes */
+export const FontSize = {
+    size_mini: 15,
+    size_xs: 12,
+    size_3xs: 10,
+    size_sm: 14,
+    size_smi: 13,
+    size_lg: 18,
+    size_xl: 20,
+    size_base: 16,
+    size_smi_2: 12,
+    size_5xl: 24,
+    size_3xl: 22,
+};
+/* Colors */
+export const Color = {
+    secondaryWhite100: "#fff",
+    black: "#000",
+    gray_100: "#807a7a",
+    gray_200: "#2b2849",
+    colorTypographyTitle: "#120d26",
+    gray_300: "#0d0c26",
+    gray_400: "rgba(255, 255, 255, 0.7)",
+    slategray_100: "#747688",
+    slategray_200: "#706e8f",
+    blueviolet_100: "#3f38dd",
+    colorPrimaryCyanSecondary: "#00f8ff",
+    salmon: "#f0635a",
+    darkslategray: "#2c3550",
+    mediumslateblue_100: "#5669ff",
+    gainsboro: "#d8d8d8",
+    darkgray_100: "#9d9898",
+    royalblue: "#1877f2",
+};
+/* border radiuses */
+export const Border = {
+    br_11xs_3: 1,
+    br_10xs_7: 3,
+    br_8xs: 5,
+    br_mini: 15,
+    br_xs: 12,
+    br_12xs: 1,
+    br_3xs: 10,
+    br_6xs: 7,
+    br_lg: 18,
+    br_81xl: 100,
+    br_11xs_5: 2,
+    br_14xl: 33,
+    br_2xs_7: 11,
+    br_sm: 14,
+    br_19xl: 38,
+    br_base: 16,
+    br_66xl_4: 85,
+    br_76xl: 95,
+    br_29xl: 48,
+};
