@@ -42,7 +42,7 @@ export default function UserProfile({ navigation }: any) {
             />
 
             <ProfileGroupMembers
-                title="Group Member (4)"
+                title="Group Member"
                 data={[1, 2, 3, 4]}
             />
             <MText /><MText /><MText /><MText />

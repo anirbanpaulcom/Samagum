@@ -1,70 +1,50 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import MText from '../../../components/Text';
 import { Styles } from '../../../styles';
 import { Row } from '../../../components/Wrapper';
 import images from '../../../assets/images';
+import { getGroupMemberApi } from '../../../API/api';
 
 interface ProfileGroupMembersProps {
     title: string;
-    apiUrl: string;
 }
 
-export default function ProfileGroupMembers({ title, apiUrl }: ProfileGroupMembersProps) {
-    
-    
-    const [data, setData] = useState<any[]>([]);
+export default function ProfileGroupMembers({ title }: ProfileGroupMembersProps) {
+
+    const [groupMembersData, setGroupMembersData] = useState([]);
 
     useEffect(() => {
-        apiUrl = 'https://dev.samagum.com/api/v1/groups?tab=member&page=1';
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Replace with your access token
-                },
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                setData(result);
-            } else {
-                console.error('API request failed');
+        getGroupMemberApi((res) => {
+            if (res !== null) {
+                setGroupMembersData(res?.data?.groups)
             }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+        })
+    }, []);
 
     return (
         <View>
             <MText style={styles.title}>{title}</MText>
 
             {
-                data.length > 0 ? (
-                    data.map((item: any, indx: number) => {
-                        return (
-                            <Row style={{ marginHorizontal: 20, marginTop: 12 }} key={indx}>
-                                <Image
-                                    source={images.eventUser}
-                                    style={{ width: 44, height: 44, borderRadius: 10 }}
-                                />
-                                <View style={{ marginLeft: 12 }}>
-                                    <MText style={styles.text}>{item.groupName}</MText>
-                                    <MText style={styles.subText}>{`${item.memberCount} Members`}</MText>
-                                </View>
-                            </Row>
-                        );
-                    })
-                ) : (
-                    <View style={{ alignItems:"center" }}>
-                    <Text style={styles.text}>There is no Group member</Text>
-                    </View>
-                )}
+                groupMembersData? (groupMembersData.map((item: any, indx: number) => {
+                    return (
+                        <Row style={{ marginHorizontal: 20, marginTop: 12 }}>
+                            <Image
+                                source={images.eventUser}
+                                style={{ width: 44, height: 44, borderRadius: 10 }}
+                            />
+                            <View style={{ marginLeft: 12 }}>
+                                <MText style={styles.text}>Black writers groups</MText>
+                                <MText style={styles.subText}>45 Members</MText>
+                            </View>
+                        </Row>
+                    );
+                }) ) : (
+                    <Text style={styles.text}>There is no group member</Text>
+                )
+            }
+
         </View>
     )
 }

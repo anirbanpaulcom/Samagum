@@ -9,11 +9,52 @@ import { RenderSwitch } from '../settings/NotificationsSettings'
 import InputBox from '../../components/InputBox'
 import CustomScroll from '../../components/CustomScroll'
 import Svg from '../../assets/svg'
+import ImageButton from '../../components/ImageButton'
+import { createEventAPI } from '../../API/api'
 
 export default function CreateEventScreen() {
-    const [checked, setChecked] = useState(false);
-    const [askQuestion, setAskQuestion] = useState(false);
-    const [allowedQuests, setAllowedQuests] = useState(false);
+const [title, setTitle] = useState('');
+const [startDate, setStartDate] = useState('');
+const [startTime, setStartTime] = useState('');
+const [endDate, setEndDate] = useState('');
+const [endTime, setEndTime] = useState('');
+const [eventImage, setEventImage] = useState(null);
+const [description, setDescription] = useState('');
+const [isOnlineEvent, setIsOnlineEvent] = useState(false);
+const [address, setAddress] = useState('');
+const [howToFindUs, setHowToFindUs] = useState('');
+const [newTipsAvailable, setNewTipsAvailable] = useState(false);
+const [allowedQuests, setAllowedQuests] = useState(false);
+const [eventFees, setEventFees] = useState(false);
+
+
+
+const handleEventPublish = async () => {
+    const eventData = {
+      title: title,
+      startDate: startDate,
+      startTime: startTime,
+      endDate: endDate,
+      endTime: endTime,
+      eventImage: eventImage,
+      description: description,
+      isOnlineEvent: isOnlineEvent,
+      address: address,
+      howToFindUs: howToFindUs,
+      newTipsAvailable: newTipsAvailable,
+      allowedQuests: allowedQuests,
+      eventFees: eventFees,
+    };
+  
+    await createEvent(eventData, (result) => {
+      if (result !== null) {
+        console.log('Event created successfully:', result);
+      } else {
+        console.error('Error creating event');
+      }
+    });
+  };
+  
 
     return (
         <Container>
@@ -23,52 +64,52 @@ export default function CreateEventScreen() {
             <CustomScroll>
                 <View style={{ padding: 20 }}>
                     <CreateEventInput
-                        placeholder='...'
+                        placeholder=''
                         label='Title'
-                        onChange={() => { }}
-                    />
+                        onChange={(text) => setTitle(text)}
+                        />
 
                     <SpaceBetweenRow>
                         <CreateEventInput
-                            placeholder='...'
+                            placeholder=''
                             label='Start'
                             width={Size.wWidth / 2.3}
-                            onChange={() => { }}
-                        />
+                            onChange={(text) => setStartDate(text)}
+                            />
                         <CreateEventInput
-                            placeholder='...'
+                            placeholder=''
                             label='Time'
                             width={Size.wWidth / 2.3}
-                            onChange={() => { }}
-                        />
+                            onChange={(text) => setStartTime(text)}
+                            />
                     </SpaceBetweenRow>
 
                     <SpaceBetweenRow>
                         <CreateEventInput
-                            placeholder='...'
+                            placeholder=''
                             label='End'
                             width={Size.wWidth / 2.3}
-                            onChange={() => { }}
-                        />
+                            onChange={(text) => setEndDate(text)}
+                            />
                         <CreateEventInput
-                            placeholder='...'
+                            placeholder=''
                             label='Time'
                             width={Size.wWidth / 2.3}
-                            onChange={() => { }}
-                        />
+                            onChange={(text) => setEndTime(text)}
+                            />
                     </SpaceBetweenRow>
 
                     <CreateEventInput
-                        placeholder='...'
+                        placeholder=''
                         label='Upload event image'
-                        onChange={() => { }}
+                        onChange={(text) => setEventImage(text)}
                         height={140}
                     />
 
                     <CreateEventInput
-                        placeholder='...'
+                        placeholder=''
                         label='Description'
-                        onChange={() => { }}
+                        onChange={(text) => setDescription(text)}
                         height={140}
                     />
 
@@ -76,46 +117,50 @@ export default function CreateEventScreen() {
                     <MText style={styles.checkTitle}>This is an online event</MText>
                     <Row>
                         <RenderSwitch
-                            swiched={checked}
-                            onPress={() => { setChecked(true) }}
-                        />
+                            swiched={isOnlineEvent}
+                            onPress={() => setIsOnlineEvent(!isOnlineEvent)}
+                            />
                         <MText style={styles.checkYes}>Yes</MText>
                     </Row>
 
                     <MText style={styles.checkTitle}>Location</MText>
                     <InputBox
-                        placeholder='...'
-                        onChangeText={() => { }}
+                        placeholder=''
+                        onChangeText={(text) => setAddress(text)}
                         LeftIcon={<Svg.LocationIcon />}
                     />
 
                     <CreateEventInput
                         placeholder=''
                         label='How to find us (Optional)'
-                        onChange={() => { }}
-                    />
+                        onChange={(text) => setHowToFindUs(text)}
+                        />
 
                     <MText style={styles.title}>Optional Settings</MText>
                     <RenderSwitch
                         title='New Tips Available'
-                        swiched={askQuestion}
-                        onPress={() => { setAskQuestion(true) }}
-                    />
+                        swiched={newTipsAvailable}
+                        onPress={() => setNewTipsAvailable(!newTipsAvailable)}
+                        />
                     <View style={{ height: 20 }} />
                     <RenderSwitch
                         title='Allowed Quests'
                         swiched={allowedQuests}
-                        onPress={() => { setAllowedQuests(true) }}
-                    />
+                        onPress={() => setAllowedQuests(!allowedQuests)}
+                        />
                     <View style={{ height: 20 }} />
                     <RenderSwitch
                         title='Event Fees'
-                        swiched={allowedQuests}
-                        onPress={() => { setAllowedQuests(true) }}
-                    />
+                        swiched={eventFees}
+                        onPress={() => setEventFees(!eventFees)}
+                        />
                 </View>
+                <ImageButton
+                    title="PUBLISH"
+                    onPress={handleEventPublish}
+                />
 
-                <View style={{ height: 80 }} />
+                <View style={{ height: 100 }} />
             </CustomScroll>
         </Container>
     )

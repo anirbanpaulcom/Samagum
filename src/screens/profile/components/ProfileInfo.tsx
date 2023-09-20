@@ -43,8 +43,9 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
 
             <MText style={styles.bio}>Bio</MText>
             <MText style={styles.bioText}>
-                Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More
+                {data?.bio || "Introduce yourself to others on Samagum. This can be short and simple."}
             </MText>
+
 
             <TextInput
                 placeholder='Add Bio'

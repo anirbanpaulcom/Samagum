@@ -1,4 +1,6 @@
 import Auth from "../constants/Auth";
+import axios from 'axios';
+
 
 export const BASE_URL = "https://saurav.tech/NewsAPI/";
 
@@ -295,3 +297,93 @@ export async function fetchHomeDataAfterLogin(callBack: (result: any) => void) {
             console.log('\n\n fetchHomeDataWithLogin error: ', error)
         });
 }
+
+
+export const getGroupMemberApi = async (callBack: (result: any) => void) => {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+   await fetch("https://dev.samagum.com/api/v1/groups?tab=member&page=1", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n getGroupMemberApi result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n getGroupMemberApi error: ', error)
+        });
+}
+
+
+export const getMyGroupsApi = async (callBack: (result: any) => void) => {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+   await fetch("https://dev.samagum.com/api/v1/group/setting/members?group=testing-api", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n getMyGroupsApi result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n getMyGroupsApi error: ', error)
+        });
+}
+
+
+
+
+
+
+export const createEventAPI = async (data: any, callBack: (result: any) => void) => {
+  try {
+    const token = await Auth.getLocalStorageData("token");
+
+    if (token !== null) {
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+      };
+
+      const response = await axios.post(
+        'https://dev.samagum.com/api/v1/group/create_event?group=demo-group-from-api-1',
+        data,
+        { headers }
+      );
+
+      console.log('\n\n createEvent result:', response.data);
+      callBack(response.data);
+    } else {
+      callBack(null);
+      console.error('Token not found');
+    }
+  } catch (error) {
+    callBack(null);
+    console.error('\n\n createEvent error:', error);
+  }
+};

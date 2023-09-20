@@ -62,7 +62,7 @@ const BottomTabs = () => {
             return (
               <BuildTabComponent
                 image={<Svg.ExploreIcon />}
-                text="News"
+                text="Explore"
                 focused={focused}
               />
             );
@@ -95,7 +95,7 @@ const BottomTabs = () => {
             return (
               <BuildTabComponent
                 image={<Svg.BellIcon />}
-                text="Chat"
+                text="Notification"
                 focused={focused}
               />
             );
@@ -111,7 +111,7 @@ const BottomTabs = () => {
             return (
               <BuildTabComponent
                 image={<Svg.ProfileIcon />}
-                text="Chat"
+                text="Profile"
                 focused={focused}
               />
             );
