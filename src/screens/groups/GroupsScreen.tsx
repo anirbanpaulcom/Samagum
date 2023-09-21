@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, StyleSheet, Image } from 'react-native'
+import { View, Text, StatusBar, StyleSheet, Image,SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, SpaceBetweenRow } from '../../components/Wrapper'
 import GroupsHeader from './container/GroupsHeader'
@@ -22,7 +22,7 @@ export default function GroupsScreen() {
     }, []);
 
     return (
-        <Container>
+        <Container style={{marginTop:50}}>   
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
             <GroupsHeader />
 

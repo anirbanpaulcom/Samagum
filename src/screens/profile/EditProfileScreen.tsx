@@ -23,15 +23,16 @@ export default function EditProfileScreen() {
     const [profileData, setProfiledata] = useState([]);
 
     useEffect(() => {
-
-        getUserProfile((res) => {
-            if (res !== null) {
-                if (res?.success === true) {
-                    setProfiledata(res?.data)
+        if (profileData.length === 0) {
+            getUserProfile((res) => {
+                if (res !== null) {
+                    if (res?.success === true) {
+                        setProfiledata(res?.data)
+                    }
                 }
-            }
-        })
-    });
+            });
+        }
+    }, []);
 
 
 
@@ -179,11 +180,31 @@ export default function EditProfileScreen() {
                     }}
                 />
 
-                <ImageButton
-                    title="SAVE"
-                    onPress={handleClick}
-                    loading={loading}
-                />
+<ImageButton
+    title="SAVE"
+    onPress={() => {
+        const data = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+            dob: DOB,
+            gender: gender,
+            country: country,
+            city: city,
+        };
+
+        updateUserProfile(data, (res) => {
+            if (res !== null) {
+                if (res?.success === true) {
+                    setProfiledata(res?.data);
+                }
+            }
+        });
+    }}
+    loading={loading}
+/>
+
 
                 <MText />
             </View>

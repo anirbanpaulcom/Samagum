@@ -2,6 +2,9 @@ import Auth from "../constants/Auth";
 import axios from 'axios';
 
 
+//   Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e
+
+
 export const BASE_URL = "https://saurav.tech/NewsAPI/";
 
 export async function getNewGroupGroupsAPI() {
@@ -101,47 +104,7 @@ export const getUserProfile = async (callBack: (result: any) => void) => {
         });
 }
 
-export const updateUserProfile = async (data: any, callBack: (result: any) => void) => {
-    var myHeaders = new Headers();
-    await Auth.getLocalStorageData("token")
-        .then((token) => {
-            if (token !== null) {
-                myHeaders.append("Authorization", `Bearer ${token}`);
-            }
-        })
-        .catch((error) => { });
 
-    var formdata = new FormData();
-    formdata.append("first_name", data?.firstName);
-    formdata.append("last_name", data?.lastName);
-    formdata.append("email", data?.email);
-    formdata.append("phone", data?.phone);
-    formdata.append("birthdate", data?.dob);
-    formdata.append("gender", data?.gender);
-    // formdata.append("profile_picture", fileInput.files[0], "/D:/images/Documents/documents/passport_size_pic.png");
-    formdata.append("profile_picture", "/D:/images/Documents/documents/passport_size_pic.png");
-    formdata.append("username", data?.email?.split("@")[0]);
-    formdata.append("timezone", "America/Belem");
-    formdata.append("bio", "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More");
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow'
-    };
-
-    fetch("https://dev.samagum.com/api/v1/account/update-details", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log('\n\n updateUserProfile result: ', result)
-            callBack(result)
-        })
-        .catch(error => {
-            callBack(null)
-            console.log('\n\n updateUserProfile error: ', error)
-        });
-}
 
 export async function getEventDiscussion(callBack: (result: any) => void) {
     var myHeaders = new Headers();
@@ -274,7 +237,7 @@ export async function fetchHomeDataAfterLogin(callBack: (result: any) => void) {
     await Auth.getLocalStorageData("token")
         .then((token) => {
             if (token !== null) {
-                myHeaders.append("Authorization", `Bearer ${token}`);
+                myHeaders.append("Authorization", `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`);
             }
         })
         .catch((error) => { });
@@ -298,42 +261,12 @@ export async function fetchHomeDataAfterLogin(callBack: (result: any) => void) {
         });
 }
 
-
-export const getGroupMemberApi = async (callBack: (result: any) => void) => {
-    var myHeaders = new Headers();
-    await Auth.getLocalStorageData("token")
-        .then((token) => {
-            if (token !== null) {
-                myHeaders.append("Authorization", `Bearer ${token}`);
-            }
-        })
-        .catch((error) => { });
-
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
-
-   await fetch("https://dev.samagum.com/api/v1/groups?tab=member&page=1", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log('\n\n getGroupMemberApi result: ', result)
-            callBack(result)
-        })
-        .catch(error => {
-            callBack(null)
-            console.log('\n\n getGroupMemberApi error: ', error)
-        });
-}
-
-
 export const getMyGroupsApi = async (callBack: (result: any) => void) => {
     var myHeaders = new Headers();
     await Auth.getLocalStorageData("token")
         .then((token) => {
             if (token !== null) {
-                myHeaders.append("Authorization", `Bearer ${token}`);
+                myHeaders.append("Authorization", `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`);
             }
         })
         .catch((error) => { });
@@ -361,13 +294,13 @@ export const getMyGroupsApi = async (callBack: (result: any) => void) => {
 
 
 
-export const createEventAPI = async (data: any, callBack: (result: any) => void) => {
+export const createEventAPI = async (eventData: any, callBack: (result: any) => void) => {
   try {
     const token = await Auth.getLocalStorageData("token");
 
     if (token !== null) {
       const headers = {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
       };
 
       const response = await axios.post(
@@ -387,3 +320,143 @@ export const createEventAPI = async (data: any, callBack: (result: any) => void)
     console.error('\n\n createEvent error:', error);
   }
 };
+
+
+export const addBioAPI = async (data) => {
+    try {
+      const token = await Auth.getLocalStorageData("token");
+  
+      if (token !== null) {
+        const headers = {
+            'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+        };
+  
+        const response = await axios.post(
+            "https://dev.samagum.com/api/v1/account/update-details",
+            data,
+          { headers }
+        );
+  
+        console.log('\n\n addBioAPI result:', response.data);
+      return response.data;
+    } else {
+      console.error('Token not found');
+      return null;
+    }
+  } catch (error) {
+    console.error('\n\n addBioAPI error:', error);
+    return null;
+  }
+};
+
+
+export const getEditProfileDetails = async (data) => {
+    try {
+      const token = await Auth.getLocalStorageData("token");
+  
+      if (token !== null) {
+        const headers = {
+            'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+        };
+  
+        const response = await axios.post(
+            "https://dev.samagum.com/api/v1/account/personal-details",
+            data,
+          { headers }
+        );
+  
+        console.log('\n\n getEditProfileDetails result:', response.data);
+      return response.data;
+    } else {
+      console.error('Token not found');
+      return null;
+    }
+  } catch (error) {
+    console.error('\n\n getEditProfileDetails error:', error);
+    return null;
+  }
+};
+
+
+export const updateUserProfile = async (data) => {
+    try {
+      const token = await Auth.getLocalStorageData("token");
+  
+      const headers = {
+        'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+      };
+  
+      const formdata = new FormData();
+      formdata.append("first_name", data?.firstName);
+      formdata.append("last_name", data?.lastName);
+      formdata.append("email", data?.email);
+      formdata.append("phone", data?.phone);
+      formdata.append("birthdate", data?.dob);
+      formdata.append("gender", data?.gender);
+      formdata.append("country", data?.country);
+      formdata.append("city", data?.city);
+  
+      const response = await axios.post("https://dev.samagum.com/api/v1/account/update-details", formdata, {
+        headers,
+      })
+  
+      console.log('updateUserProfile result:', response.data);
+    } catch (error) {
+      console.error('updateUserProfile error:', error);
+    }
+}
+
+
+export const eventDetailsApi = async (callBack: (result: any) => void) => {
+    
+      const token = await Auth.getLocalStorageData("token");
+      
+  
+      if (token !== null) {
+        const headers = {
+          'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+        };
+  
+        await axios.get(
+            "https://dev.samagum.com/api/v1/group/event/57",
+          { headers }
+        ).then(result => {
+            console.log('\n\n eventDetailsApi  result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n eventDetailsApi  error: ', error)
+        });
+}
+}
+
+
+
+export const changePasswordApi = async (newPassword,callBack: (result: any) => void) => {
+    
+    const token = await Auth.getLocalStorageData("token");
+    
+
+    if (token !== null) {
+      const headers = {
+        'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+      };
+
+      var formdata = new FormData();
+      formdata.append("new_password", newPassword);
+
+      await axios.post(
+          "https://dev.samagum.com/api/v1/account/update-password",
+          formdata,
+        { headers }
+      ).then(result => {
+          console.log('\n\n passwordchanging  result: ', result)
+          callBack(result)
+      })
+      .catch(error => {
+          callBack(null)
+          console.log('\n\n passwordchanging  error: ', error)
+      });
+ }
+}

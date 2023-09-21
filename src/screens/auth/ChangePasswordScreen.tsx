@@ -1,13 +1,37 @@
 import { View, Text, StatusBar, StyleSheet, TextInput } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from '../../components/Wrapper'
 import SettingsHeader from '../settings/container/SettingsHeader'
 import MText from '../../components/Text'
 import { Colors } from '../../styles'
 import { Button } from 'react-native-paper'
 import ImageButton from '../../components/ImageButton'
+import { changePasswordApi } from '../../API/api'
 
 export default function ChangePasswordScreen() {
+
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [repeatNewPassword, setRepeatNewPassword] = useState('');
+
+       
+    const handleChangePassword = async()=>{
+        if(newPassword === repeatNewPassword){
+        await changePasswordApi(newPassword, (result)=>{
+            if (result !== null) {
+                console.log('change successfully:', result);
+              } else {
+                console.error('not changed');
+              }
+        })
+        }else{
+            console.log('not same');
+        }
+
+    }
+
+    
+
     return (
         <Container>
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
@@ -21,17 +45,17 @@ export default function ChangePasswordScreen() {
 
                 <ChangePasswordInput
                     placeholder='Current password (Updated 12-06-23)'
-                    onChange={() => { }}
+                    onChange={(text) => { setCurrentPassword(text)}}
                 />
 
                 <ChangePasswordInput
                     placeholder='New password'
-                    onChange={() => { }}
+                    onChange={(text) => { setNewPassword(text)}}
                 />
 
                 <ChangePasswordInput
                     placeholder='Retype new password'
-                    onChange={() => { }}
+                    onChange={(text) => { setRepeatNewPassword(text)}}
                 />
 
                 <View style={{ alignItems: "flex-start" }}>
@@ -44,6 +68,7 @@ export default function ChangePasswordScreen() {
             <ImageButton
                 title="CHANGE PASSWORD"
                 style={{ marginTop: "20%" }}
+                onPress={handleChangePassword}
             />
         </Container>
     )

@@ -6,10 +6,14 @@ import Svg from '../../../assets/svg'
 import { Colors, Styles } from '../../../styles'
 import images from '../../../assets/images'
 
-export default function EventDetailsTitle() {
+export default function EventDetailsTitle({ title }) {
+
+
+
+
     return (
         <View style={{ padding: 16 }}>
-            <MText style={styles.title}>International Band Music Concert</MText>
+            <MText style={styles.title}>{title ?? 'test event'}</MText>
 
             <Row style={Styles.marginTopXL}>
                 <View style={styles.iconbg}>

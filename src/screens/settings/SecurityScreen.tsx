@@ -11,6 +11,8 @@ import { RenderSwitch } from './NotificationsSettings'
 export default function SecurityScreen({ navigation }: any) {
     const [checked, setChecked] = useState(false);
 
+    
+
     return (
         <Container>
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />

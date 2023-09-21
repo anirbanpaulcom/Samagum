@@ -1,33 +1,22 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import MText from '../../../components/Text';
 import { Styles } from '../../../styles';
 import { Row } from '../../../components/Wrapper';
 import images from '../../../assets/images';
-import { getGroupMemberApi } from '../../../API/api';
 
 interface ProfileGroupMembersProps {
     title: string;
+    data: any;
 }
 
-export default function ProfileGroupMembers({ title }: ProfileGroupMembersProps) {
-
-    const [groupMembersData, setGroupMembersData] = useState([]);
-
-    useEffect(() => {
-        getGroupMemberApi((res) => {
-            if (res !== null) {
-                setGroupMembersData(res?.data?.groups)
-            }
-        })
-    }, []);
-
+export default function ProfileGroupMembers({ title, data }: ProfileGroupMembersProps) {
     return (
         <View>
             <MText style={styles.title}>{title}</MText>
 
             {
-                groupMembersData? (groupMembersData.map((item: any, indx: number) => {
+                data?.map((item: any, indx: number) => {
                     return (
                         <Row style={{ marginHorizontal: 20, marginTop: 12 }}>
                             <Image
@@ -40,11 +29,8 @@ export default function ProfileGroupMembers({ title }: ProfileGroupMembersProps)
                             </View>
                         </Row>
                     );
-                }) ) : (
-                    <Text style={styles.text}>There is no group member</Text>
-                )
+                })
             }
-
         </View>
     )
 }

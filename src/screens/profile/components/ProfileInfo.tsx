@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react' 
 import images from '../../../assets/images'
 import MText from '../../../components/Text'
 import Button from '../../../components/Button';
@@ -8,6 +8,7 @@ import { Row } from '../../../components/Wrapper';
 import { MyList } from '../../interests/components/SearchContainer';
 import { TouchableOpacity } from 'react-native';
 import { Colors, Styles } from '../../../styles';
+import { addBioAPI } from '../../../API/api';
 // import { Button } from 'react-native-paper'
 
 interface ProfileInfoProps {
@@ -18,6 +19,22 @@ interface ProfileInfoProps {
 }
 
 export default function ProfileInfo({ btnIcon, btnText, data, onPress }: ProfileInfoProps) {
+    const [newBio, setNewBio] = useState('');
+
+    const handleBioAdd = async () => {
+        try {
+          const result = await addBioAPI(newBio);
+          if (result !== null) {
+            console.log('Bio updated successfully:', result);
+          } else {
+            console.error('Error updating bio');
+          }
+        } catch (error) {
+          console.error('An error occurred while updating bio:', error);
+        }
+      };
+
+
     return (
         <View>
             {data?.profile
@@ -45,13 +62,21 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
             <MText style={styles.bioText}>
                 {data?.bio || "Introduce yourself to others on Samagum. This can be short and simple."}
             </MText>
+      <TextInput
+        placeholder='Add Bio'
+        placeholderTextColor={Colors.primary}
+        style={styles.inputStyle}
+        onChangeText={(text) => setNewBio(text)}
+      />
 
+      <Button
+        title="done" 
+        style={{width:50 , marginLeft:310}}
+        mode="outlined"
+        textStyle={{ marginLeft: 6, fontSize: 16, marginTop: 2 }}
+        onPress={handleBioAdd}
+      />
 
-            <TextInput
-                placeholder='Add Bio'
-                placeholderTextColor={Colors.primary}
-                style={styles.inputStyle}
-            />
 
             <MText style={styles.bio}>Interests</MText>
             <MText style={styles.bioText}>
