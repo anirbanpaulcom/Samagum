@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import GroupDetailsHeader from './components/GroupDetailsHeader'
 import GroupDetailsTitle from './components/GroupDetailsTitle'
 import GroupDetailsAbout from './components/GroupDetailsAbout'
@@ -9,8 +9,32 @@ import MText from '../../components/Text'
 import { StatusBar } from 'react-native'
 import GroupHighlights from './components/GroupHighlights'
 import GroupRelatedTopics from './components/GroupRelatedTopics'
+import { fetchGroupDetails, getAllGroupsYouOrganize } from '../../API/api'
 
-export default function GroupDetailsScreen() {
+export default function GroupDetailsScreen({ route }: any) {
+    const groupName = route?.params?.groupName?.slug;
+    const groupID = route?.params?.groupName?.id;
+    const [groupDetailsData, setGroupDetailsData] = useState([]);
+    const [EventsDataYouOrganize, setEventsDataYouOrganize] = useState<any>([]);
+
+    useEffect(() => {
+        fetchGroupDetails(groupName, (res) => {
+            setGroupDetailsData(res?.data);
+        });
+    }, []);
+
+    useEffect(() => {
+        getAllGroupsYouOrganize((res) => {
+            if (res !== null) {
+                setEventsDataYouOrganize(res?.data)
+            }
+        })
+    }, []);
+
+    // console.log('====================================');
+    // console.log('groupName: ', groupDetailsData, groupName);
+    // console.log('====================================');
+
     return (
         <CustomScroll>
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
@@ -21,6 +45,7 @@ export default function GroupDetailsScreen() {
             <GroupDetailsTitle
                 title="International Band Music Concert"
                 membersCount='275'
+                groupData={route?.params?.groupName}
             />
 
             {/* About Group */}
@@ -32,18 +57,14 @@ export default function GroupDetailsScreen() {
             {/* UpcommingEvents */}
             <UpcommingEvents
                 title="Events"
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                data={EventsDataYouOrganize}
             />
 
             {/* Group Discussion */}
-            <GroupDiscussion
-                title="Discussion"
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-            />
+            <GroupDiscussion title="Discussion" />
 
             <GroupHighlights
                 title="Highlights"
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
                 text="The Buddhist Forum in japan"
                 subText="10 oct 2023"
             />

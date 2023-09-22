@@ -12,10 +12,9 @@ interface EventGalleryProps {
     title: string;
     text: string;
     subText: string;
-    data: any;
 }
 
-export default function GroupHighlights({ title, text, subText, data }: EventGalleryProps) {
+export default function GroupHighlights({ title, text, subText }: EventGalleryProps) {
     const navigation = useNavigation();
     const [allGroupHighlights, setAllGroupHighlights] = useState([]);
 

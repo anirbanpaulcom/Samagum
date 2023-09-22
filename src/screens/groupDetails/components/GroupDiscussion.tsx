@@ -1,7 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet, ActivityIndicator, TextInput, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import images from '../../../assets/images';
-import { useNavigation } from '@react-navigation/native';
 import { Size } from '../../../constants';
 import MText from '../../../components/Text';
 import { Row, SpaceBetweenRow } from '../../../components/Wrapper';
@@ -16,11 +15,9 @@ import Toast from 'react-native-simple-toast';
 
 interface EventGalleryProps {
     title: string;
-    data: any;
 }
 
-export default function GroupDiscussion({ title, data }: EventGalleryProps) {
-    const navigation = useNavigation();
+export default function GroupDiscussion({ title }: EventGalleryProps) {
     const { groupDiscussionData } = useSelector((state: any) => state.GroupDiscussion);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);

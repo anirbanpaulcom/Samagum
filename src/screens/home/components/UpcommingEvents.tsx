@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, SpaceBetweenRow } from '../../../components/Wrapper';
 import MText from '../../../components/Text';
 import Svg from '../../../assets/svg';
@@ -9,6 +9,7 @@ import styles from '../styles';
 import { Size } from '../../../constants';
 import HomeSectionTitle from './HomeSectionTitle';
 import { useNavigation } from '@react-navigation/native';
+import { getAllGroupsYouOrganize } from '../../../API/api';
 
 interface UpcommingEventsProps {
     title: string;
@@ -80,9 +81,6 @@ export default function UpcommingEvents({ title, data }: UpcommingEventsProps) {
                 data={data}
                 horizontal
                 renderItem={({ item }) => {
-                    console.log('=========Data item: ===========================');
-                    console.log(item);
-                    console.log('====================================');
                     return (
                         <TouchableOpacity style={styles.card}
                             onPress={() => { navigation?.navigate("EventDetailScreen") }}

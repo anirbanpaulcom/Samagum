@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Size } from '../../../constants';
 import MText from '../../../components/Text';
 import { Button } from 'react-native-paper';
 import Svg from '../../../assets/svg';
+import { getAllGroupRelatedTopics } from '../../../API/api';
 
 interface GroupRelatedTopicsProps {
     title: string;
@@ -11,19 +12,31 @@ interface GroupRelatedTopicsProps {
 }
 
 export default function GroupRelatedTopics({ title, data }: GroupRelatedTopicsProps) {
+    const [allGroupRelatedTopic, setAllGroupRelatedTopic] = useState<any>([]);
+
+    useEffect(() => {
+        getAllGroupRelatedTopics((res) => {
+            if (res !== null) {
+                if (res?.success == true) {
+                    setAllGroupRelatedTopic(res?.data)
+                }
+            }
+        })
+    }, []);
+
     return (
         <View>
             <MText style={styles.heading}>{title}</MText>
 
             <View style={styles.container}>
                 {
-                    data?.map((item: any, indx: number) => {
+                    allGroupRelatedTopic?.recommended?.map((item: any, indx: number) => {
                         return (
                             <Button key={indx} mode="outlined" style={styles.button}
                                 icon="plus"
                                 onPress={() => { }}
                             >
-                                {item}
+                                {item?.name}
                             </Button>
                         );
                     })

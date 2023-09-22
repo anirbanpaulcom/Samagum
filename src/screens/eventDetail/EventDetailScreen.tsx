@@ -19,11 +19,8 @@ export default function EventDetailScreen() {
                 setEventDetails(result?.data)
             }
         })
-        console.log(eventDetails, "000000000000000000000000000000000000",eventDetails.title, 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
-    }, 
-    [eventDetails]);
-
-
+        console.log(eventDetails, "000000000000000000000000000000000000", eventDetails.title, 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+    }, [eventDetails]);
 
 
     return (

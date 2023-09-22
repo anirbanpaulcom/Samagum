@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const dispatch = useDispatch();
 
-  const { login } = useSelector(state => state.User);
+  const { login } = useSelector((state: any) => state.User);
 
   const [loginChk, setLoginChk] = useState(true);
 

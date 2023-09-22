@@ -70,7 +70,7 @@ interface MyGroupsProps {
 // }
 
 export default function MyGroups({ title, data }: MyGroupsProps) {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     return (
         <View style={{ paddingBottom: 80 }}>
@@ -83,7 +83,11 @@ export default function MyGroups({ title, data }: MyGroupsProps) {
                 data={data}
                 renderItem={({ item }) => {
                     return (
-                        <TouchableOpacity onPress={() => { navigation?.navigate("GroupDetailsScreen") }}>
+                        <TouchableOpacity onPress={() => {
+                            navigation?.navigate("GroupDetailsScreen", {
+                                groupName: item,
+                            })
+                        }}>
                             <Row style={styles.groupCard}>
                                 <Image
                                     source={{ uri: item?.image }} resizeMode="stretch"
