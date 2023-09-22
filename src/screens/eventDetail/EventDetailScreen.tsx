@@ -11,17 +11,16 @@ import { StatusBar } from 'react-native'
 import { eventDetailsApi } from '../../API/api'
 
 export default function EventDetailScreen() {
-    const [eventDetails, setEventDetails] = useState([]);
+    const [eventData, setEventData] = useState([]);
 
     useEffect(() => {
         eventDetailsApi((result) => {
             if (result !== null) {
-                setEventDetails(result?.data)
+                setEventData(result?.data)
             }
         })
-        console.log(eventDetails, "000000000000000000000000000000000000",eventDetails.title, 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
     }, 
-    [eventDetails]);
+    );
 
 
 
@@ -30,10 +29,10 @@ export default function EventDetailScreen() {
         <CustomScroll>
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             {/* Background Image */}
-            <EventDetailsHeader />
+            <EventDetailsHeader eventData={eventData}/>
 
             {/* Detail Info */}
-            <EventDetailsTitle title={eventDetails?.title} />
+            <EventDetailsTitle title={eventData?.title} />
 
             {/* About Event */}
             <EventDetailsAbout />
@@ -44,11 +43,10 @@ export default function EventDetailScreen() {
                 data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
             />
 
-            <EventComments />
 
-            {/* Events */}
+            {/* Similar Events Don't have the Api */}
             <UpcommingEvents
-                title="Events"
+                title="Similar Events"
                 data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
             />
             <MText />

@@ -21,6 +21,7 @@ export default function GroupDetailsScreen() {
             <GroupDetailsTitle
                 title="International Band Music Concert"
                 membersCount='275'
+                group_id="jj"
             />
 
             {/* About Group */}

@@ -16,7 +16,7 @@ export default function GroupDetailsHeader() {
             <SpaceBetweenRow>
                 <Row>
                     <HeaderLeft />
-                    <MText style={styles.title}>Event Details</MText>
+                    <MText style={styles.title}>Group Details</MText>
                 </Row>
 
                 <View style={styles.savedIcon}>

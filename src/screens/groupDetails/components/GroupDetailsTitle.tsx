@@ -7,14 +7,21 @@ import { Colors, Styles } from '../../../styles'
 import images from '../../../assets/images'
 import { Button } from 'react-native-paper'
 import ImageButton from '../../../components/ImageButton'
+import { joinGroupApi } from '../../../API/api'
 
 interface GroupDetailsTitleProps {
     title: string;
     membersCount: string;
+    group_id : any;
 }
 
-export default function GroupDetailsTitle({ title, membersCount }: GroupDetailsTitleProps) {
-    function handleSubmit() { }
+export default function GroupDetailsTitle({ title, membersCount, group_id }: GroupDetailsTitleProps) {
+
+
+    async function handlejoingroup() { 
+        joinGroupApi(group_id);
+        
+    }
 
     return (
         <View style={{ padding: 16 }}>
@@ -43,7 +50,7 @@ export default function GroupDetailsTitle({ title, membersCount }: GroupDetailsT
 
             <ImageButton
                 title="JOIN GROUP"
-                onPress={handleSubmit}
+                onPress={()=> handlejoingroup()}
             />
 
             <MText style={styles.subTitle}>

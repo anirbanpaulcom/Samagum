@@ -85,7 +85,7 @@ export default function UpcommingEvents({ title, data }: UpcommingEventsProps) {
                     console.log('====================================');
                     return (
                         <TouchableOpacity style={styles.card}
-                            onPress={() => { navigation?.navigate("EventDetailScreen") }}
+                            onPress={() => { navigation?.navigate("EventDetailScreen", { eventData: data }); }}
                         >
                             <Image
                                 source={{ uri: item?.image }} resizeMode="stretch"
