@@ -17,7 +17,7 @@ export default function ChangePasswordScreen() {
        
     const handleChangePassword = async()=>{
         if(newPassword === repeatNewPassword){
-        await changePasswordApi(newPassword, (result)=>{
+        await changePasswordApi(currentPassword,newPassword, (result)=>{
             if (result !== null) {
                 console.log('change successfully:', result);
               } else {
@@ -58,11 +58,7 @@ export default function ChangePasswordScreen() {
                     onChange={(text) => { setRepeatNewPassword(text)}}
                 />
 
-                <View style={{ alignItems: "flex-start" }}>
-                    <Button labelStyle={styles.forgotPassword}>
-                        Forgotten your password?
-                    </Button>
-                </View>
+
 
             </View>
             <ImageButton

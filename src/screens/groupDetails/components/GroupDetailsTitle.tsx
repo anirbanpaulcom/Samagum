@@ -65,7 +65,7 @@ export default function GroupDetailsTitle({ groupData, title, membersCount }: Gr
 
             <ImageButton
                 title="JOIN GROUP"
-                onPress={handleSubmit}
+                onPress={() => handlejoingroup()}
             />
 
             <MText style={styles.subTitle}>
