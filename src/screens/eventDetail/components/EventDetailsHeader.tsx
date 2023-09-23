@@ -1,22 +1,20 @@
-import { View, ImageBackground, StyleSheet } from 'react-native'
-import React from 'react'
-import images from '../../../assets/images'
-import { Row, SpaceBetweenRow } from '../../../components/Wrapper'
-import HeaderLeft from '../../../components/HeaderLeft'
-import MText from '../../../components/Text'
-import Svg from '../../../assets/svg'
-import { Styles } from '../../../styles'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { AddFavEvent } from '../../../API/api'
+import {ImageBackground, StyleSheet} from 'react-native';
+import React from 'react';
+import images from '../../../assets/images';
+import {Row, SpaceBetweenRow} from '../../../components/Wrapper';
+import HeaderLeft from '../../../components/HeaderLeft';
+import MText from '../../../components/Text';
+import Svg from '../../../assets/svg';
+import {Styles} from '../../../styles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import { AddFavEvent } from '../../../API/new api';
 
-export default function EventDetailsHeader({ eventData }) {
-
-    async function handleEventSave(eventData){
-
-           await AddFavEvent(eventData, (result)=>{
-            if (result !== null) {
-                console.log('added successfully:', result);
-              } else {
+export default function EventDetailsHeader({eventData}) {
+  async function handleEventSave(eventData: any) {
+    await AddFavEvent(eventData, (result) => {
+      if (result !== null) {
+        console.log('added successfully:', result);
+    }else {
                 console.error('not added');
               }
            });

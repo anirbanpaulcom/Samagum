@@ -7,7 +7,7 @@ import { Colors, Styles } from '../../../styles'
 import images from '../../../assets/images'
 import { Button } from 'react-native-paper'
 import ImageButton from '../../../components/ImageButton'
-import { joinGroupApi } from '../../../API/api'
+import { joinGroupApi } from '../../../API/new api'
 
 interface GroupDetailsTitleProps {
     title: string;

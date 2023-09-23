@@ -8,7 +8,7 @@ import EventGallery from './components/EventGallery'
 import EventComments from './components/EventComments'
 import MText from '../../components/Text'
 import { StatusBar } from 'react-native'
-import { eventDetailsApi } from '../../API/api'
+import { eventDetailsApi } from '../../API/new api'
 
 export default function EventDetailScreen() {
     const [eventData, setEventData] = useState([]);

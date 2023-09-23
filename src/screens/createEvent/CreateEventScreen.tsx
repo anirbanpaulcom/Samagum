@@ -10,7 +10,7 @@ import InputBox from '../../components/InputBox'
 import CustomScroll from '../../components/CustomScroll'
 import Svg from '../../assets/svg'
 import ImageButton from '../../components/ImageButton'
-import { createEventAPI } from '../../API/api'
+import { createEventAPI } from '../../API/new api'
 
 export default function CreateEventScreen() {
 const [title, setTitle] = useState('');
@@ -46,7 +46,7 @@ const handleEventPublish = async () => {
       eventFees: eventFees,
     };
   
-    await createEvent(eventData, (result) => {
+    await createEventAPI(eventData, (result) => {
       if (result !== null) {
         console.log('Event created successfully:', result);
       } else {

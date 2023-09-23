@@ -6,7 +6,7 @@ import MText from '../../components/Text'
 import { Colors } from '../../styles'
 import { Button } from 'react-native-paper'
 import ImageButton from '../../components/ImageButton'
-import { changePasswordApi } from '../../API/api'
+import { changePasswordApi } from '../../API/new api'
 
 export default function ChangePasswordScreen() {
 
@@ -44,7 +44,7 @@ export default function ChangePasswordScreen() {
                 </MText>
 
                 <ChangePasswordInput
-                    placeholder='Current password (Updated 12-06-23)'
+                    placeholder='Current password'
                     onChange={(text) => { setCurrentPassword(text)}}
                 />
 
@@ -57,8 +57,6 @@ export default function ChangePasswordScreen() {
                     placeholder='Retype new password'
                     onChange={(text) => { setRepeatNewPassword(text)}}
                 />
-
-
 
             </View>
             <ImageButton

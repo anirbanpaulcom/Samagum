@@ -8,7 +8,7 @@ import { Row } from '../../../components/Wrapper';
 import { MyList } from '../../interests/components/SearchContainer';
 import { TouchableOpacity } from 'react-native';
 import { Colors, Styles } from '../../../styles';
-import { addBioAPI } from '../../../API/api';
+import { addBioAPI } from '../../../API/new api';
 // import { Button } from 'react-native-paper'
 
 interface ProfileInfoProps {
