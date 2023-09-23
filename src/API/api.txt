@@ -285,6 +285,131 @@ export const getMyGroupsApi = async (callBack: (result: any) => void) => {
 }
 
 
+export async function getAllGroupRelatedTopics(callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    // await Auth.getLocalStorageData("token")
+    //     .then((token) => {
+    //         if (token !== null) {
+    //             myHeaders.append("Authorization", `Bearer ${token}`);
+    //         }
+    //     })
+    //     .catch((error) => { });
+    myHeaders.append("Authorization", "Bearer 3|wK58Dkd3zVzATkeBs3EyFDrlsyIyDxFnKZMiGnOhCdEkZiHBNyrHLQBQMLdP9XMPuyDLmBMo13x8re7ryFXEd3zRKfX5ht6ZhpEl");
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/group/setting/topics?group=testing-api", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n getAllGroupRelatedTopics result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n getAllGroupRelatedTopics error: ', error)
+        });
+}
+
+
+export async function joinGroupAPI(group_id: string, callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var formdata = new FormData();
+    formdata.append("group_id", group_id);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/group/join", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n joinGroupAPI result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n joinGroupAPI error: ', error)
+        });
+}
+
+
+export async function fetchGroupDetails(group_name: string, callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var formdata = new FormData();
+    formdata.append("group_name", group_name);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/group-details", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n fetchGroupDetails result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n fetchGroupDetails error: ', error)
+        });
+}
+
+
+export async function getAllGroupsYouOrganize(callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/my_events/from_groups_you_organize", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n getAllGroupsYouOrganize result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n getAllGroupsYouOrganize error: ', error)
+        });
+}
+
+
 // ======================================= All apis on 22/09/2023 =================================================
 
 export async function deleteGroupAPI(delete_reason: string, callBack: (result: any) => void) {
@@ -659,8 +784,33 @@ export async function updateSponsorsListAPI(
 }
 
 
-export async function getAllGroupMenbersCount(params:type) {
-    
+export async function getAllGroupMenbersCount(callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    // await Auth.getLocalStorageData("token")
+    //     .then((token) => {
+    //         if (token !== null) {
+    //             myHeaders.append("Authorization", `Bearer ${token}`);
+    //         }
+    //     })
+    //     .catch((error) => { });
+    myHeaders.append("Authorization", "Bearer 3|wK58Dkd3zVzATkeBs3EyFDrlsyIyDxFnKZMiGnOhCdEkZiHBNyrHLQBQMLdP9XMPuyDLmBMo13x8re7ryFXEd3zRKfX5ht6ZhpEl");
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/group/setting/members?group=testing-api", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n getAllGroupMenbersCount result: ', result)
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n getAllGroupMenbersCount error: ', error)
+        });
 }
 
 
@@ -918,8 +1068,6 @@ export const AddFavEvent = async (eventData: any, callBack: (result: any) => voi
 export const joinGroupApi = async (group_id: any, callBack: (result: any) => void) => {
 
     const token = await Auth.getLocalStorageData("token");
-
-
     if (token !== null) {
         const headers = {
             'Authorization': `Bearer ${token}`,
