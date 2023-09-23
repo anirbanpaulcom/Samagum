@@ -9,18 +9,21 @@ import { Styles } from '../../../styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AddFavEvent } from '../../../API/api'
 
-export default function EventDetailsHeader({ eventData }) {
+interface EventDetailsHeaderProps {
+    eventData: any;
+}
 
-    async function handleEventSave(eventData){
+export default function EventDetailsHeader({ eventData }: EventDetailsHeaderProps) {
 
-           await AddFavEvent(eventData, (result)=>{
+    async function handleEventSave(eventData: any) {
+        await AddFavEvent(eventData, (result) => {
             if (result !== null) {
                 console.log('added successfully:', result);
-              } else {
+            } else {
                 console.error('not added');
-              }
-           });
-         
+            }
+        });
+
     }
 
     return (
@@ -34,8 +37,8 @@ export default function EventDetailsHeader({ eventData }) {
                     <MText style={styles.title}>Event Details</MText>
                 </Row>
 
-                <TouchableOpacity style={styles.savedIcon} 
-                onPress={()=> handleEventSave(eventData)}>
+                <TouchableOpacity style={styles.savedIcon}
+                    onPress={() => handleEventSave(eventData)}>
                     <Svg.BookmarkIcon />
                 </TouchableOpacity>
             </SpaceBetweenRow>

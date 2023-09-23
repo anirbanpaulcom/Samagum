@@ -11,7 +11,7 @@ import { StatusBar } from 'react-native'
 import { eventDetailsApi } from '../../API/api'
 
 export default function EventDetailScreen() {
-    const [eventData, setEventData] = useState([]);
+    const [eventData, setEventData] = useState<any>([]);
 
     useEffect(() => {
         eventDetailsApi((result) => {
@@ -39,7 +39,6 @@ export default function EventDetailScreen() {
                 title="Events"
                 data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
             />
-
 
             {/* Similar Events Don't have the Api */}
             <UpcommingEvents
