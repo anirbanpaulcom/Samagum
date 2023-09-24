@@ -237,7 +237,7 @@ export async function fetchHomeDataAfterLogin(callBack: (result: any) => void) {
     await Auth.getLocalStorageData("token")
         .then((token) => {
             if (token !== null) {
-                myHeaders.append("Authorization", `Bearer 22|VNT5A4jBO9AMW1CS6u4QQphXW08VQiO0vDDwSJeZCzOwZEdp9Lm0e3BhxpFMQL57UFS4TCkXf2HL9QHJUbOZs2jDePUyRHD5JxB7`);
+                myHeaders.append("Authorization", `Bearer 22|GC0BCx09vhLNJB21xnnE6NZWi5sdhKwuZUk5DbpqTzqFwJTU4GKbiv7X9uzFoqMBJMuwRf4jELfgf1MKLaryMo72zJjFhtVeeSQv`);
             }
         })
         .catch((error) => { });

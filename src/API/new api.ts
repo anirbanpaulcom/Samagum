@@ -1,3 +1,4 @@
+import Auth from "../constants/Auth";
 
 export const createEventAPI = async (eventData: any, callBack: (result: any) => void) => {
     var myHeaders = new Headers();
@@ -273,3 +274,34 @@ fetch("https://dev.samagum.com/api/v1/group/join", requestOptions)
   .catch(error => console.log('error', error));
 
 }}
+
+
+export const AddSocialMediaApi = async ( fbLink: any,TwLink: any,linkedinLink: any,callBack: (result: any) => void) => {
+
+  const token = await Auth.getLocalStorageData("token");
+
+
+  if (token !== null) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+  };
+
+var formdata = new FormData();
+formdata.append("facebook", fbLink);
+formdata.append("instagram", "li");
+formdata.append("twitter", TwLink);
+formdata.append("linkedin", linkedinLink);
+
+var requestOptions = {
+  method: 'POST',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/account/update-social", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+  }
+}

@@ -59,6 +59,9 @@ import EditPencilIcon from "./edit_pencil.svg";
 import TranslateIcon from "./translate.svg";
 import SecurityIcon from "./security.svg";
 import PasswordIcon from "./password.svg";
+import EditPencil from './Vector.svg'
+import DownArrow from './Vector 20.svg'
+import Twitter from './Group 33528.svg'
 
 export default {
     HomeIcon,
@@ -121,5 +124,8 @@ export default {
     EditPencilIcon,
     TranslateIcon,
     SecurityIcon,
-    PasswordIcon
+    PasswordIcon,
+    EditPencil,
+    DownArrow,
+    Twitter
 }

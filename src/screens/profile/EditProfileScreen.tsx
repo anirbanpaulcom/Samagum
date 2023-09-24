@@ -11,9 +11,12 @@ import CustomDropdownComponent from '../../components/CustomDropdown'
 import ImageButton from '../../components/ImageButton'
 import images from '../../assets/images'
 import Svg from '../../assets/svg'
-import { updateUserProfile } from '../../API/api'
+import { updateUserProfile } from '../../API/new api'
 import { getUserProfile } from '../../API/api'
 import Toast from 'react-native-simple-toast';
+import { Row } from '../../components/Wrapper'
+import HeaderLeft from '../../components/HeaderLeft'
+import SettingsHeader from '../settings/container/SettingsHeader'
 
 export default function EditProfileScreen() {
 
@@ -84,18 +87,12 @@ export default function EditProfileScreen() {
     return (
         <CustomScroll>
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
-            <ProfileHeader isEdit={true} />
+            
 
-            <View>
-                <ImageBackground
-                    source={images.profile}
-                    style={styles.profile}
-                >
-                    <TouchableOpacity style={styles.edit} onPress={() => { }}>
-                        <Svg.EditPencilIcon />
-                    </TouchableOpacity>
-                </ImageBackground>
-            </View>
+            <SettingsHeader title='Edit intro' />
+
+            <MText style={{fontSize:20, fontWeight:"500", marginHorizontal:20, marginVertical:15}}>Personal Info</MText>
+            <MText style={{fontSize:15, fontWeight:"400", marginHorizontal:20,}}>General</MText>
 
             <View style={{ marginHorizontal: 20 }}>
                 <EditProfileInput
@@ -113,6 +110,19 @@ export default function EditProfileScreen() {
                     value={lastName}
                     onChange={(val) => {
                         setLastName(val)
+                    }}
+                />
+
+               <MText style={styles.label}>Date Of Birth</MText>
+                <DatePicker
+                    placeholderText={profileData?.birthdate || "DOB"}
+                    minimumDate=""
+                    mode="date"
+                    maximumDate={moment().subtract(18, "years").toDate()}
+                    value={DOB}
+                    containerStyle={styles.datePickerContainer}
+                    onDateSelected={(val: string) => {
+                        setDOB(val);
                     }}
                 />
 
@@ -136,18 +146,7 @@ export default function EditProfileScreen() {
                     }}
                 />
 
-                <MText style={styles.label}>Date Of Birth</MText>
-                <DatePicker
-                    placeholderText={profileData?.birthdate || "DOB"}
-                    minimumDate=""
-                    mode="date"
-                    maximumDate={moment().subtract(18, "years").toDate()}
-                    value={DOB}
-                    containerStyle={styles.datePickerContainer}
-                    onDateSelected={(val: string) => {
-                        setDOB(val);
-                    }}
-                />
+              <MText style={{fontSize:15, fontWeight:"400",marginTop:20}}>Miscellaneous</MText>
 
                 <MText style={styles.label}>Gender</MText>
                 <CustomDropdownComponent
