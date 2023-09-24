@@ -162,7 +162,7 @@ export const RadioButtonUi = ({ checked, value, setChecked, text }: RadioButtonP
       <RadioButton.Android
         value={value}
         status={checked ? 'checked' : 'unchecked'}
-        onPress={() => setChecked(!checked)}
+        onPress={() => setChecked(value)}
         color={Colors.primary}
       />
       <MText>{text}</MText>

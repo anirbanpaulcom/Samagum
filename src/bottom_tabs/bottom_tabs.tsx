@@ -9,6 +9,7 @@ import HomeScreen from '../screens/home/HomeScreen';
 import OrganizerProfile from '../screens/profile/OrganizerProfile';
 import UserProfile from '../screens/profile/UserProfile';
 import CreateEventScreen from '../screens/createEvent/CreateEventScreen';
+import CreateGroupScreen from '../screens/createGroup/CreateGroupScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -71,7 +72,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="CreateTab"
-        component={CreateEventScreen}
+        component={CreateGroupScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => {

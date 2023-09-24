@@ -102,7 +102,7 @@ interface RenderRadioBtnProps {
     onPress: (val: string) => void;
 }
 
-const RenderRadioBtn = ({ title, checked, onPress }: RenderRadioBtnProps) => {
+export const RenderRadioBtn = ({ title, checked, onPress }: RenderRadioBtnProps) => {
     return (
         <SpaceBetweenRow style={Styles.marginTop}>
             <MText style={styles.switchText}>{title}</MText>

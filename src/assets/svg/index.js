@@ -59,6 +59,11 @@ import EditPencilIcon from "./edit_pencil.svg";
 import TranslateIcon from "./translate.svg";
 import SecurityIcon from "./security.svg";
 import PasswordIcon from "./password.svg";
+import StarIcon from "./Star.svg";
+import SavedRedIcon from "./saved_red.svg";
+import ShareIcon from "./Share.svg";
+import LocationFillIcon from "./location_fill.svg";
+import SearchBlueIcon from "./search_blue.svg";
 
 export default {
     HomeIcon,
@@ -121,5 +126,10 @@ export default {
     EditPencilIcon,
     TranslateIcon,
     SecurityIcon,
-    PasswordIcon
+    PasswordIcon,
+    StarIcon,
+    SavedRedIcon,
+    ShareIcon,
+    LocationFillIcon,
+    SearchBlueIcon
 }

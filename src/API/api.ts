@@ -256,6 +256,94 @@ export async function fetchHomeDataAfterLogin(callBack: (result: any) => void) {
         });
 }
 
+
+export async function fetchMyAttendingEvents(callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/my_events/attending", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n fetchMyAttendingEvents result: ')
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n fetchMyAttendingEvents error: ', error)
+        });
+}
+
+
+export async function fetchMySavedEvents(callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/my_events/saved", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n fetchMySavedEvents result: ')
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n fetchMySavedEvents error: ', error)
+        });
+}
+
+
+export async function fetchEventsThatYouJoined(callBack: (result: any) => void) {
+    var myHeaders = new Headers();
+    await Auth.getLocalStorageData("token")
+        .then((token) => {
+            if (token !== null) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
+        })
+        .catch((error) => { });
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.samagum.com/api/v1/my_events/from_groups_you_joined", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log('\n\n fetchMySavedEvents result: ')
+            callBack(result)
+        })
+        .catch(error => {
+            callBack(null)
+            console.log('\n\n fetchMySavedEvents error: ', error)
+        });
+}
+
+
 export const getMyGroupsApi = async (callBack: (result: any) => void) => {
     var myHeaders = new Headers();
     await Auth.getLocalStorageData("token")

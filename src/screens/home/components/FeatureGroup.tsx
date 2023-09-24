@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { Row, SpaceBetweenRow } from '../../../components/Wrapper';
 import MText from '../../../components/Text';
@@ -26,10 +26,13 @@ export default function FeatureGroup({ title, data }: FeatureGroupProps) {
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity style={styles.card}>
-                            <Image
-                                source={{ uri: item?.image }} resizeMode="stretch"
-                                style={{ width: Size.wWidth / 1.6, height: 140 }}
-                            />
+                            <View>
+                                <Image
+                                    source={{ uri: item?.image }} resizeMode="stretch"
+                                    style={{ width: Size.wWidth / 1.6, height: 140 }}
+                                />
+                                <ShowDateComponent />
+                            </View>
                             <View style={{ paddingHorizontal: 8 }}>
                                 <MText style={styles.title}>
                                     {/* ISGSITS Alumni Chapt... */}
@@ -62,3 +65,48 @@ export default function FeatureGroup({ title, data }: FeatureGroupProps) {
         </View>
     )
 }
+
+const ShowDateComponent = () => {
+    return (
+        <SpaceBetweenRow style={{ position: "absolute", top: 8, paddingHorizontal: 10, width: "100%" }}>
+            <Row style={myStyles.dateBlock}>
+                <Svg.UsersIcon />
+                <MText style={myStyles.members}>14 Members</MText>
+            </Row>
+
+            <Row>
+                <View style={myStyles.savedBlock}>
+                    <Svg.StarIcon />
+                </View>
+                <View style={{ width: 8 }} />
+                <View style={myStyles.savedBlock}>
+                    <Svg.ShareIcon />
+                </View>
+            </Row>
+        </SpaceBetweenRow>
+    );
+}
+
+const myStyles = StyleSheet.create({
+    dateBlock: {
+        width: 116,
+        height: 37,
+        borderRadius: 10,
+        backgroundColor: "#FFF6F2",
+        ...Styles.centered,
+    },
+    members: {
+        fontSize: 12,
+        fontWeight: "400",
+        color: "#747688",
+        textAlign: "center",
+        marginLeft: 4
+    },
+    savedBlock: {
+        width: 30,
+        height: 30,
+        borderRadius: 7,
+        backgroundColor: "#FFF",
+        ...Styles.centered,
+    }
+})

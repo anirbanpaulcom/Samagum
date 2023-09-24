@@ -16,4 +16,8 @@ export default {
     eventUser: require('./eventUser.png'),
     eventGallery: require('./eventGallery.png'),
     profile_cover: require('./profile_cover.png'),
+    step1: require('./step1.png'),
+    step2: require('./step2.png'),
+    step3: require('./step3.png'),
+    step4: require('./step4.png'),
 }

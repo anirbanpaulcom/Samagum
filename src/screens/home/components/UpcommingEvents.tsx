@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Row, SpaceBetweenRow } from '../../../components/Wrapper';
 import MText from '../../../components/Text';
@@ -85,10 +85,13 @@ export default function UpcommingEvents({ title, data }: UpcommingEventsProps) {
                         <TouchableOpacity style={styles.card}
                             onPress={() => { navigation?.navigate("EventDetailScreen") }}
                         >
-                            <Image
-                                source={{ uri: item?.image }} resizeMode="stretch"
-                                style={{ width: Size.wWidth / 1.6, height: 140 }}
-                            />
+                            <View>
+                                <Image
+                                    source={{ uri: item?.image }} resizeMode="stretch"
+                                    style={{ width: Size.wWidth / 1.6, height: 140 }}
+                                />
+                                <ShowDateComponent />
+                            </View>
                             <View style={{ paddingHorizontal: 8 }}>
                                 <MText style={styles.title}>
                                     {/* International Band Mu... */}
@@ -119,3 +122,55 @@ export default function UpcommingEvents({ title, data }: UpcommingEventsProps) {
         </View>
     )
 }
+
+
+const ShowDateComponent = () => {
+    return (
+        <SpaceBetweenRow style={{ position: "absolute", top: 8, paddingHorizontal: 10, width: "100%" }}>
+            <View style={myStyles.dateBlock}>
+                <MText style={myStyles.date}>10</MText>
+                <MText style={myStyles.month}>JUNE</MText>
+            </View>
+
+            <Row>
+                <View style={myStyles.savedBlock}>
+                    <Svg.StarIcon />
+                </View>
+                <View style={{ width: 8 }} />
+                <View style={myStyles.savedBlock}>
+                    <Svg.SavedRedIcon />
+                </View>
+            </Row>
+        </SpaceBetweenRow>
+    );
+}
+
+const myStyles = StyleSheet.create({
+    dateBlock: {
+        width: 45,
+        height: 45,
+        borderRadius: 10,
+        backgroundColor: "#FFF6F2",
+        ...Styles.centered,
+    },
+    date: {
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#F0635A",
+        textAlign: "center",
+    },
+    month: {
+        fontSize: 10,
+        fontWeight: "400",
+        color: "#F0635A",
+        textAlign: "center",
+        marginTop: -4
+    },
+    savedBlock: {
+        width: 30,
+        height: 30,
+        borderRadius: 7,
+        backgroundColor: "#FFF",
+        ...Styles.centered,
+    }
+})
