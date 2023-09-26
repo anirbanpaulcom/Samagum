@@ -72,7 +72,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="CreateTab"
-        component={CreateGroupScreen}
+        component={CreateEventScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => {

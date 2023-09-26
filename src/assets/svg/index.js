@@ -64,6 +64,14 @@ import SavedRedIcon from "./saved_red.svg";
 import ShareIcon from "./Share.svg";
 import LocationFillIcon from "./location_fill.svg";
 import SearchBlueIcon from "./search_blue.svg";
+import UploadFilledIcon from "./upload-filled.svg";
+import PaymentIcon from "./payment.svg";
+import WishlistIcon from "./wishlist.svg";
+import MailOIcon from "./mail-o.svg";
+import SettingsIcon from "./settings.svg";
+import HelpIcon from "./help.svg";
+import SignoutIcon from "./signout.svg";
+import UpgradeIcon from "./upgrade.svg";
 
 export default {
     HomeIcon,
@@ -131,5 +139,13 @@ export default {
     SavedRedIcon,
     ShareIcon,
     LocationFillIcon,
-    SearchBlueIcon
+    SearchBlueIcon,
+    UploadFilledIcon,
+    PaymentIcon,
+    WishlistIcon,
+    MailOIcon,
+    SettingsIcon,
+    HelpIcon,
+    SignoutIcon,
+    UpgradeIcon
 }

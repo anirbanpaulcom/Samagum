@@ -121,9 +121,9 @@ const InputBox = ({
           <MText style={Styles.error}>{error}</MText>
         </Animatable.View>}
       </View>
-      <View style={{ position: "absolute", left: 12, top: 25 }}>
-        {LeftIcon && LeftIcon}
-      </View>
+      {LeftIcon && <View style={{ position: "absolute", left: 12, top: 25 }}>
+        {LeftIcon}
+      </View>}
     </View>
   )
 }

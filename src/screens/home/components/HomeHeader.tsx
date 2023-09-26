@@ -1,10 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, NativeSyntheticEvent, NativeTouchEvent } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, SpaceBetweenRow } from '../../../components/Wrapper'
 import Svg from '../../../assets/svg'
 import MText from '../../../components/Text'
 import { Colors } from '../../../styles'
 import { Size } from '../../../constants'
+import CustomDrawer from '../../../components/CustomDrawer'
+import { useNavigation } from '@react-navigation/native'
 
 interface HomeHeaderProps {
     searchInputCallback: ((e: NativeSyntheticEvent<NativeTouchEvent>) => void) | undefined
@@ -12,10 +14,13 @@ interface HomeHeaderProps {
 }
 
 export default function HomeHeader({ searchInputCallback, onFilterPress }: HomeHeaderProps) {
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const navigation = useNavigation();
+
     return (
         <View style={styles.Container}>
             <SpaceBetweenRow>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => setOpenDrawer(true)}>
                     <Svg.MenuIcon />
                 </TouchableOpacity>
 
@@ -47,6 +52,12 @@ export default function HomeHeader({ searchInputCallback, onFilterPress }: HomeH
                     </Row>
                 </TouchableOpacity>
             </SpaceBetweenRow>
+
+            <CustomDrawer
+                modalVisible={openDrawer}
+                navigation={navigation}
+                callback={() => { setOpenDrawer(false) }}
+            />
         </View>
     )
 }
