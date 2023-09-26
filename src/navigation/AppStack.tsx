@@ -14,6 +14,7 @@ import LanguagesSettings from '../screens/settings/LanguagesSettings';
 import PrivacyPolicyScreen from '../screens/settings/PrivacyPolicyScreen';
 import SecurityScreen from '../screens/settings/SecurityScreen';
 import ChangePasswordScreen from '../screens/auth/ChangePasswordScreen';
+import SocialLinksScreen from '../screens/profile/SocialLinksScreen';
 
 const Stack = createStackNavigator();
 
@@ -80,6 +81,10 @@ const AppStack = () => {
             <Stack.Screen
                 name="ChangePasswordScreen"
                 component={ChangePasswordScreen}
+            />
+            <Stack.Screen
+            name="SocialLinksScreen"
+            component={SocialLinksScreen}
             />
         </Stack.Navigator>
     );

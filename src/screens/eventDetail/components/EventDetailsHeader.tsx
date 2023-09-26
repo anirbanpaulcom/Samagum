@@ -1,13 +1,26 @@
-import { View, ImageBackground, StyleSheet } from 'react-native'
-import React from 'react'
-import images from '../../../assets/images'
-import { Row, SpaceBetweenRow } from '../../../components/Wrapper'
-import HeaderLeft from '../../../components/HeaderLeft'
-import MText from '../../../components/Text'
-import Svg from '../../../assets/svg'
-import { Styles } from '../../../styles'
+import {ImageBackground, StyleSheet} from 'react-native';
+import React from 'react';
+import images from '../../../assets/images';
+import {Row, SpaceBetweenRow} from '../../../components/Wrapper';
+import HeaderLeft from '../../../components/HeaderLeft';
+import MText from '../../../components/Text';
+import Svg from '../../../assets/svg';
+import {Styles} from '../../../styles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import { AddFavEvent } from '../../../API/new api';
 
-export default function EventDetailsHeader() {
+export default function EventDetailsHeader({eventData}) {
+  async function handleEventSave(eventData: any) {
+    await AddFavEvent(eventData, (result) => {
+      if (result !== null) {
+        console.log('added successfully:', result);
+    }else {
+                console.error('not added');
+              }
+           });
+         
+    }
+
     return (
         <ImageBackground
             source={images.eventDetails}
@@ -19,9 +32,10 @@ export default function EventDetailsHeader() {
                     <MText style={styles.title}>Event Details</MText>
                 </Row>
 
-                <View style={styles.savedIcon}>
+                <TouchableOpacity style={styles.savedIcon} 
+                onPress={()=> handleEventSave(eventData)}>
                     <Svg.BookmarkIcon />
-                </View>
+                </TouchableOpacity>
             </SpaceBetweenRow>
         </ImageBackground>
     )
