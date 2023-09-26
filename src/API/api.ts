@@ -237,7 +237,7 @@ export async function fetchHomeDataAfterLogin(callBack: (result: any) => void) {
             }
         })
         .catch((error) => { });
-
+    // myHeaders.append("Authorization", "Bearer 3|QkysqA0FuRHqK9qede2SKdaWYWg0fErEMESQMoLbMJEg9eVvud0ZT8vKu4bONae2l6B2oVyfsRVuVw5nsbRyQ7rQtripSdWZq9Of");
     var requestOptions = {
         method: 'GET',
         headers: myHeaders,

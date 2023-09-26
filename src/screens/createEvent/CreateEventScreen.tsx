@@ -60,13 +60,13 @@ export default function CreateEventScreen() {
             eventFees: eventFees,
         };
 
-        await createEvent(eventData, (result) => {
-            if (result !== null) {
-                console.log('Event created successfully:', result);
-            } else {
-                console.error('Error creating event');
-            }
-        });
+        // await createEvent(eventData, (result: any) => {
+        //     if (result !== null) {
+        //         console.log('Event created successfully:', result);
+        //     } else {
+        //         console.error('Error creating event');
+        //     }
+        // });
     };
 
 

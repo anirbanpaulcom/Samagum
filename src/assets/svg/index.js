@@ -72,6 +72,9 @@ import SettingsIcon from "./settings.svg";
 import HelpIcon from "./help.svg";
 import SignoutIcon from "./signout.svg";
 import UpgradeIcon from "./upgrade.svg";
+import EditPencil from './Vector.svg'
+import DownArrow from './Vector 20.svg'
+import Twitter from './Group 33528.svg'
 
 export default {
     HomeIcon,
@@ -147,5 +150,8 @@ export default {
     SettingsIcon,
     HelpIcon,
     SignoutIcon,
-    UpgradeIcon
+    UpgradeIcon,
+    EditPencil,
+    DownArrow,
+    Twitter
 }

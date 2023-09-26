@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TextInput } from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput, ImageBackground} from 'react-native'
 import React, { useState } from 'react' 
 import images from '../../../assets/images'
 import MText from '../../../components/Text'
@@ -8,7 +8,10 @@ import { Row } from '../../../components/Wrapper';
 import { MyList } from '../../interests/components/SearchContainer';
 import { TouchableOpacity } from 'react-native';
 import { Colors, Styles } from '../../../styles';
-import { addBioAPI } from '../../../API/api';
+import { addBioAPI } from '../../../API/new api';
+import { useNavigation } from '@react-navigation/native';
+import svg from '../../../assets/svg';
+
 // import { Button } from 'react-native-paper'
 
 interface ProfileInfoProps {
@@ -19,11 +22,21 @@ interface ProfileInfoProps {
 }
 
 export default function ProfileInfo({ btnIcon, btnText, data, onPress }: ProfileInfoProps) {
+    const navigation = useNavigation();
+
+    
     const [newBio, setNewBio] = useState('');
+    const [bioField, setBioField] = useState(false);
+   
+
+    const handleOpenAbout = () =>{
+        setBioField(true);
+    }
 
     const handleBioAdd = async () => {
         try {
           const result = await addBioAPI(newBio);
+          setBioField(false);
           if (result !== null) {
             console.log('Bio updated successfully:', result);
           } else {
@@ -37,64 +50,108 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
 
     return (
         <View>
+           
             {data?.profile
-                ? <Image
+                ? (
+                   <ImageBackground
                     source={{ uri: data?.profile }}
                     style={styles.profile}
-                />
-                : <Image
+                >
+                    <TouchableOpacity style={styles.edit} onPress={() => { }}>
+                        <Svg.EditPencilIcon />
+                    </TouchableOpacity>
+                </ImageBackground>
+                )
+                : (<ImageBackground
                     source={images.profile}
                     style={styles.profile}
-                />}
+                >
+                    <TouchableOpacity style={styles.edit} onPress={() => { }}>
+                        <Svg.EditPencilIcon />
+                    </TouchableOpacity>
+                </ImageBackground>
+            )
+            }
 
             <MText style={styles.userName}>{data?.first_name + " " + data?.last_name}</MText>
+        <Row>
+        <MText style={styles.bio}>Personal Info</MText> 
+        <TouchableOpacity style={styles.infoedit} onPress={onPress}>
+            <Svg.EditPencil/>
+        </TouchableOpacity>
+        </Row>
 
-            <Button
-                title={btnText}
-                style={styles.messageBtn}
-                mode="outlined"
-                textStyle={{ marginLeft: 6, fontSize: 16, marginTop: 2 }}
-                SvgIcon={btnIcon}
-                onPress={onPress}
-            />
+        <Row>
+        <MText style={styles.bioText}>
+            General
+        </MText>
+        <TouchableOpacity style={styles.infoedit} onPress={onPress}>
+            <Svg.DownArrow/>
+        </TouchableOpacity>
+        </Row>
+            <Row>
+        <MText style={styles.bioText}>
+        Contact Details
+        </MText>
+        <TouchableOpacity style={styles.infoedit} onPress={onPress}>
+            <Svg.DownArrow/>
+        </TouchableOpacity>
+        </Row>
+        <Row>
+        <MText style={styles.bioText}>
+        Miscellaneous
+        </MText>
+        <TouchableOpacity style={styles.infoedit} onPress={onPress}>
+            <Svg.DownArrow/>
+        </TouchableOpacity>
+        </Row>
 
-            <MText style={styles.bio}>Bio</MText>
-            <MText style={styles.bioText}>
+        <Row>
+        <MText style={styles.bio}>About</MText>
+        <TouchableOpacity style={[styles.infoedit]} onPress={handleOpenAbout}>
+            {bioField? <MText onPress={handleBioAdd}>Ok</MText> : 
+            <Svg.EditPencil/>
+            }
+        </TouchableOpacity>
+        </Row>
+
+        {bioField ?
+            <TextInput
+            placeholder='Add Bio'
+            placeholderTextColor={Colors.primary}
+            style={styles.inputStyle}
+            onChangeText={(text) => setNewBio(text)}
+          /> :
+        <MText style={styles.bioText}>
                 {data?.bio || "Introduce yourself to others on Samagum. This can be short and simple."}
-            </MText>
-      <TextInput
-        placeholder='Add Bio'
-        placeholderTextColor={Colors.primary}
-        style={styles.inputStyle}
-        onChangeText={(text) => setNewBio(text)}
-      />
-
-      <Button
-        title="done" 
-        style={{width:50 , marginLeft:310}}
-        mode="outlined"
-        textStyle={{ marginLeft: 6, fontSize: 16, marginTop: 2 }}
-        onPress={handleBioAdd}
-      />
+        </MText>
+    }  
 
 
-            <MText style={styles.bio}>Interests</MText>
-            <MText style={styles.bioText}>
-                Add interests to discover what you share with others and to improve recommendations.
-            </MText>
-
+            <MText style={styles.bio}>Inclinations</MText>
             <Row style={{ flexGrow: 1, flexWrap: "wrap", marginHorizontal: 20, marginVertical: 10 }}>
                 {MyList.map((item, indx) => {
                     return (
                         <TouchableOpacity style={styles.artAndCulture} key={indx}>
                             <MText style={styles.artAndCultureText}>{item}</MText>
                             <View style={{ marginLeft: 4, marginTop: 2 }}>
-                                <Svg.PlusIcon />
                             </View>
                         </TouchableOpacity>
                     )
                 })}
             </Row>
+
+        <Row>
+        <MText style={styles.bio}>Social Links</MText>
+        <TouchableOpacity style={[styles.infoedit]} onPress={() => navigation.navigate("SocialLinksScreen")}>
+            <Svg.EditPencil/>
+        </TouchableOpacity>
+        </Row> 
+        <Row style={{ flexGrow: 1, flexWrap: "wrap",justifyContent:"space-around" ,marginHorizontal: 20, marginVertical: 15 }}>
+         <svg.FacebookIcon />
+         <svg.LinkedinIcon />
+         <svg.Twitter />
+         </Row>
         </View>
     )
 }
@@ -106,8 +163,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         marginTop: -50,
         alignSelf: "center",
-        borderWidth: 2,
-        borderColor: "#fff",
+        borderColor: "blue",
     },
     userName: {
         fontSize: 24,
@@ -161,5 +217,24 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         paddingHorizontal: 16,
         marginTop: 16
+    },
+    edit: {
+        width: 28,
+        height: 28,
+        borderRadius: 12,
+        backgroundColor: Colors.primary,
+        ...Styles.centered,
+        position: "absolute",
+        bottom: 4,
+        right: 4
+    },
+    infoedit: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        position: "absolute",
+        bottom: 4,
+        right: 4,
+        marginHorizontal: 15,
     }
 })
