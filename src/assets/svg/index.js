@@ -61,7 +61,7 @@ import SecurityIcon from "./security.svg";
 import PasswordIcon from "./password.svg";
 import StarIcon from "./Star.svg";
 import SavedRedIcon from "./saved_red.svg";
-import ShareIcon from "./Share.svg";
+import ShareIcon from "./iconamoon_share-2-duotone.svg";
 import LocationFillIcon from "./location_fill.svg";
 import SearchBlueIcon from "./search_blue.svg";
 import UploadFilledIcon from "./upload-filled.svg";
@@ -75,6 +75,8 @@ import UpgradeIcon from "./upgrade.svg";
 import EditPencil from './Vector.svg'
 import DownArrow from './Vector 20.svg'
 import Twitter from './Group 33528.svg'
+import Pin from './pin-svgrepo-com 1.svg'
+
 
 export default {
     HomeIcon,
@@ -153,5 +155,6 @@ export default {
     UpgradeIcon,
     EditPencil,
     DownArrow,
-    Twitter
+    Twitter,
+    Pin
 }

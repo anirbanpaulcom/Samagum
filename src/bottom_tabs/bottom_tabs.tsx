@@ -10,6 +10,8 @@ import OrganizerProfile from '../screens/profile/OrganizerProfile';
 import UserProfile from '../screens/profile/UserProfile';
 import CreateEventScreen from '../screens/createEvent/CreateEventScreen';
 import CreateGroupScreen from '../screens/createGroup/CreateGroupScreen';
+import GroupDetailsScreen from '../screens/groupDetails/GroupDetailsScreen';
+
 
 const Tab = createBottomTabNavigator();
 

@@ -7,7 +7,7 @@ import { Styles } from '../../../styles';
 import { useNavigation } from '@react-navigation/native'
 
 
-export default function GroupsHeader() {
+export default function GroupsHeader( { pageName }) {
     const navigation = useNavigation();
 
     
@@ -20,15 +20,7 @@ export default function GroupsHeader() {
                         onPress={() => { navigation?.goBack()}}
                         />
                     </TouchableOpacity>
-                    <MText style={styles.title}>Groups</MText>
-                </Row>
-                <Row>
-                    <TouchableOpacity style={Styles.horizontalMarginL}>
-                        <Svg.SearchBIcon />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Svg.ThreeDotsIcon />
-                    </TouchableOpacity>
+                    <MText style={styles.title}>{pageName}</MText>
                 </Row>
             </SpaceBetweenRow>
         </View>

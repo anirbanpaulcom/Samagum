@@ -11,6 +11,11 @@ import { Size } from '../constants';
 import MText from './Text';
 import Button from './Button';
 import Svg from '../assets/svg';
+import Auth from "../constants/Auth";
+import { useNavigation } from '@react-navigation/native';
+import { LogoutApi } from '../API/new api';
+
+
 
 interface CustomDrawerProps {
     modalVisible: boolean;
@@ -18,7 +23,16 @@ interface CustomDrawerProps {
     navigation: any;
 }
 
-const CustomDrawer = ({ modalVisible, callback, navigation }: CustomDrawerProps) => {
+const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
+    const navigation = useNavigation();
+
+   const SignOut = async ()=>{
+    await LogoutApi();
+    navigation.navigate('LoginScreen');
+   }
+
+
+
     return (
         <View style={{ alignItems: 'flex-start' }}>
             <Modal
@@ -109,6 +123,7 @@ const CustomDrawer = ({ modalVisible, callback, navigation }: CustomDrawerProps)
                             SvgIcon={<Svg.SignoutIcon />}
                             textStyle={styles.btnText}
                             style={styles.button}
+                            onPress={SignOut}
                         />
 
                         <Button

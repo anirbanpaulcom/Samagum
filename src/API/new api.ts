@@ -305,3 +305,34 @@ fetch("https://dev.samagum.com/api/v1/account/update-social", requestOptions)
   .catch(error => console.log('error', error));
   }
 }
+
+export const LogoutApi = async (callBack: (result: any) => void) => {
+
+  const token = await Auth.getLocalStorageData("token");
+
+
+  if (token !== null) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+  };
+  var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+
+fetch("https://dev.samagum.com/api/v1/signout", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+
+  await Auth.setLocalStorageData("token", null);
+
+
+}
+}

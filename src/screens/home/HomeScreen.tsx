@@ -15,6 +15,9 @@ import FeatureGroup from './components/FeatureGroup'
 import MostActiveGroup from './components/MostActiveGroup'
 import FilterModal from './components/FilterModal'
 import { fetchEventsThatYouJoined, fetchHomeDataAfterLogin, fetchMyAttendingEvents, fetchMySavedEvents } from '../../API/api'
+import AttendingEvents from './components/AttendingEvents'
+import JoinedGroups from './components/JoinedGroups'
+import LoginScreen from '../auth/LoginScreen'
 
 export default function HomeScreen({ navigation }: any) {
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -22,6 +25,9 @@ export default function HomeScreen({ navigation }: any) {
     const [attendingEvents, setAttendingEvents] = useState<any>([]);
     const [savedEvents, setSavedEvents] = useState<any>([]);
     const [EventsThatYouJoined, setEventsThatYouJoined] = useState<any>([]);
+
+
+    const nodata=[];
 
     useEffect(() => {
         fetchHomeDataAfterLogin((res) => {
@@ -61,20 +67,24 @@ export default function HomeScreen({ navigation }: any) {
                 <CustomScroll>
                     {/* Upcomming Events */}
                     <UpcommingEvents
-                        title="i'm attending"
+                        title="I'm Attending"
                         data={attendingEvents}
+                        navigationPage={"AttendingEventsScreen"}
                     />
                     <MText />
 
-                    <UpcommingEvents
-                        title="Saved event"
+                    <AttendingEvents
+                        title="My Watchlist"
                         data={savedEvents}
+                        navigationPage={"MyWatchListScreen"}
                     />
+
                     <MText />
 
-                    <UpcommingEvents
+                    <AttendingEvents
                         title="Upcoming Events"
                         data={homeData?.upcoming_online_events}
+                        navigationPage={"UpcomingEventsAll"}
                     />
                     <MText />
 
@@ -90,42 +100,50 @@ export default function HomeScreen({ navigation }: any) {
 
                     {/* <ExploreGroups /> */}
 
-                    <UpcommingEvents
+                    <AttendingEvents
                         title="Featured Events"
-                        data={homeData?.events_from_groups_you_organize}
+                        data={nodata}
+                        navigationPage={"FeaturedEventsScreen"}
                     />
 
-                    <UpcommingEvents
+                    <AttendingEvents
                         title="Near By Events"
-                        data={homeData?.events_from_groups_you_organize}
+                        data={nodata}
+                        navigationPage={"NearbyEventsScreen"}
                     />
 
-                    <UpcommingEvents
+                    <AttendingEvents
                         title="Events from joined Groups"
                         data={EventsThatYouJoined}
+                        navigationPage={"EventsFromJoinedGroupScreen"}
                     />
 
-                    <MyGroups
-                        title="i'm organizing"
-                        data={homeData?.events_from_groups_you_organize}
+                    <UpcommingEvents
+                        title="I’m Organizing"
+                        data={nodata}
+                        navigationPage={"ImOrganizingScreen"}
                     />
 
-                    <FeatureGroup
+                    <JoinedGroups
+                        title="Groups I Own"
+                        data={nodata}
+                        navigationPage={"GroupIOwnScreen"}
+                    />
+
+                    <JoinedGroups
                         title="Joined Groups"
-                        data={EventsThatYouJoined}
+                        data={nodata}
+                        navigationPage={"JoinedGroupScreen"}
                     />
 
                     <FeatureGroup
                         title="Most Vibrants Groups"
-                        data={homeData?.events_from_groups_you_organize}
+                        data={nodata}
+                        navigationPage={"MostVibrantGroupsScreen"}
                     />
 
-                    <MostActiveGroup
-                        title="Your Calendar"
-                        data={homeData?.events_from_groups_you_organize}
-                    />
 
-                    <View style={{ height: 80 }} />
+                    <View style={{ height: 100 }} />
                 </CustomScroll>
             </View>
 

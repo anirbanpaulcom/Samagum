@@ -15,6 +15,17 @@ import PrivacyPolicyScreen from '../screens/settings/PrivacyPolicyScreen';
 import SecurityScreen from '../screens/settings/SecurityScreen';
 import ChangePasswordScreen from '../screens/auth/ChangePasswordScreen';
 import SocialLinksScreen from '../screens/profile/SocialLinksScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
+import AttendingEventsScreen from '../screens/EventsScreens/Attending';
+import MyWatchListScreen from '../screens/EventsScreens/MyWatchList';
+import UpcomingEventsAll from '../screens/EventsScreens/UpcomingEventsAll';
+import FeaturedEventsScreen from '../screens/EventsScreens/FeaturedEvents';
+import NearbyEventsScreen from '../screens/EventsScreens/NearbyEvents';
+import EventsFromJoinedGroupScreen from '../screens/EventsScreens/EventsFromJoinedGroups';
+import ImOrganizingScreen from '../screens/EventsScreens/I\'mOrganizing';
+import GroupIOwnScreen from '../screens/groups/GroupIOwn';
+import MostVibrantGroupsScreen from '../screens/groups/MostVibrantGroups';
+import JoinedGroupScreen from '../screens/groups/JoinedGroup';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +42,10 @@ const AppStack = () => {
                 component={BottomTabs}
             />
             <Stack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+            />
+            <Stack.Screen
                 name="EventDetailScreen"
                 component={EventDetailScreen}
             />
@@ -45,6 +60,42 @@ const AppStack = () => {
             <Stack.Screen
                 name="EventsScreen"
                 component={EventsScreen}
+            />
+            <Stack.Screen
+                name="AttendingEventsScreen"
+                component={AttendingEventsScreen}
+            />
+            <Stack.Screen
+                name="UpcomingEventsAll"
+                component={UpcomingEventsAll}
+            />
+            <Stack.Screen
+                name="FeaturedEventsScreen"
+                component={FeaturedEventsScreen}
+            />
+             <Stack.Screen
+                name="ImOrganizingScreen"
+                component={ImOrganizingScreen}
+            />
+            <Stack.Screen
+                name="EventsFromJoinedGroupScreen"
+                component={EventsFromJoinedGroupScreen}
+            />
+            <Stack.Screen
+                name="MyWatchListScreen"
+                component={MyWatchListScreen}
+            />
+            <Stack.Screen
+                name="GroupIOwnScreen"
+                component={GroupIOwnScreen}
+            />
+            <Stack.Screen
+                name="MostVibrantGroupsScreen"
+                component={MostVibrantGroupsScreen}
+            />
+            <Stack.Screen
+                name="JoinedGroupScreen"
+                component={JoinedGroupScreen}
             />
             <Stack.Screen
                 name="GroupDetailsScreen"

@@ -3,14 +3,19 @@ import { SpaceBetweenRow } from '../../../components/Wrapper'
 import MText from '../../../components/Text'
 import styles from '../styles'
 import Button from '../../../components/Button'
-import Svg from '../../../assets/svg'
+import Svg from '../../../assets/svg';
+import { useNavigation } from '@react-navigation/native';
+
 
 interface HomeSectionTitleProps {
     title: string;
     onPress?: () => void;
 }
 
-export default function HomeSectionTitle({ title, onPress }: HomeSectionTitleProps) {
+export default function HomeSectionTitle({ title,navigationPage, onPress }: HomeSectionTitleProps) {
+
+    const navigation = useNavigation();
+
     return (
         <SpaceBetweenRow>
             <MText style={styles.heading}>{title}</MText>
@@ -21,7 +26,7 @@ export default function HomeSectionTitle({ title, onPress }: HomeSectionTitlePro
                 style={{ marginTop: 20, marginRight: 20 }}
                 iconPosition="right"
                 SvgIcon={<Svg.RightChevronIcon />}
-                onPress={onPress}
+                onPress={() => { navigation?.navigate(navigationPage)}}
             />
         </SpaceBetweenRow>
     )
