@@ -536,7 +536,7 @@ export const createEventAPI = async (data: any, callBack: (result: any) => void)
 
         if (token !== null) {
             const headers = {
-                'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+                'Authorization': `Bearer ${token}`,
             };
 
             const response = await axios.post(
@@ -564,7 +564,7 @@ export const addBioAPI = async (data: any) => {
 
         if (token !== null) {
             const headers = {
-                'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+                'Authorization': `Bearer ${token}`,
             };
 
             const response = await axios.post(
@@ -592,7 +592,7 @@ export const getEditProfileDetails = async (data: any) => {
 
         if (token !== null) {
             const headers = {
-                'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+                'Authorization': `Bearer ${token}`,
             };
 
             const response = await axios.post(
@@ -619,7 +619,7 @@ export const updateUserProfile = async (data: any) => {
         const token = await Auth.getLocalStorageData("token");
 
         const headers = {
-            'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+            'Authorization': `Bearer ${token}`,
         };
 
         const formdata = new FormData();
@@ -650,7 +650,7 @@ export const eventDetailsApi = async (callBack: (result: any) => void) => {
 
     if (token !== null) {
         const headers = {
-            'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+            'Authorization': `Bearer ${token}`,
         };
 
         await axios.get(
@@ -674,7 +674,7 @@ export const changePasswordApi = async (newPassword: string, callBack: (result: 
 
     if (token !== null) {
         const headers = {
-            'Authorization': `Bearer 22|jDqpDXj4Fg5j6nhzboJzXfsd8JzkNxV1ZdjRa9b1edqNc2rVVsJ28UqoiFN6jRHQ2u37y1zZhYCccN1xqeAuaC2B8it3K5L0169e`,
+            'Authorization': `Bearer ${token}`,
         };
 
         var formdata = new FormData();

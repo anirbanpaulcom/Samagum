@@ -10,15 +10,15 @@ import styles from '../styles';
 import { Size } from '../../../constants';
 import HomeSectionTitle from './HomeSectionTitle';
 
-interface FeatureGroupProps {
+interface JoinedGroupsProps {
     title: string;
     data: any;
 }
 
-export default function FeatureGroup({ title, data,navigationPage }: FeatureGroupProps) {
+export default function JoinedGroups({ title, data,navigationPage }: JoinedGroupsProps) {
     return (
         <View>
-            <HomeSectionTitle title={title} navigationPage={navigationPage} />
+            <HomeSectionTitle title={title} navigationPage={navigationPage}/>
 
             <FlatList
                 data={data}
@@ -37,21 +37,15 @@ export default function FeatureGroup({ title, data,navigationPage }: FeatureGrou
                                     {/* ISGSITS Alumni Chapt... */}
                                     {item?.title}
                                 </MText>
-                                <SpaceBetweenRow style={Styles.marginTop}>
+                                <SpaceBetweenRow style={{marginVertical:10}}>
                                     <Row>
                                         <Svg.LocationSmallIcon />
                                         <MText style={styles.EventAddress}>36 Guild Street London...</MText>
                                     </Row>
-                                </SpaceBetweenRow>
-                                <Row style={{justifyContent:"center", marginVertical:10}}>
-                                <TouchableOpacity style={myStyles.Button}>
-                                    <MText style={{color:"#5669FF", fontSize:15, fontWeight:"500"}}>Join</MText>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
+                                    <TouchableOpacity>
                                     <Svg.ShareIcon />
-                                </TouchableOpacity>    
-                                </Row>
-
+                                </TouchableOpacity> 
+                                </SpaceBetweenRow>
                             </View>
                         </TouchableOpacity>
                     );

@@ -10,7 +10,7 @@ import { Size } from '../../constants'
 import CustomScroll from '../../components/CustomScroll'
 import { getAllGroupsAPI } from '../../API/api'
 
-export default function GroupsScreen() {
+export default function GroupIOwnScreen( ) {
     const [groupsData, setGroupsData] = useState([]);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function GroupsScreen() {
     return (
         <Container>   
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-            <GroupsHeader />
+            <GroupsHeader pageName={"Group I Own"}/>
 
             <CustomScroll>
                 {groupsData?.map((item: any, indx) => {

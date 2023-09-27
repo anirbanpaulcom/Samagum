@@ -81,8 +81,9 @@ export default StyleSheet.create({
         height: 35,
         borderRadius: 10,
         alignSelf: "center",
-        marginTop: 14,
-        marginBottom: 6,
+        marginVertical:10,
+        marginHorizontal:10
+
     },
     joinButtonText: {
         fontSize: 15,

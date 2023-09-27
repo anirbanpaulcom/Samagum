@@ -3,25 +3,20 @@ import React from 'react'
 import { Row, SpaceBetweenRow } from '../../../components/Wrapper'
 import Svg from '../../../assets/svg'
 import MText from '../../../components/Text'
-import { Styles } from '../../../styles'
+import { Styles } from '../../../styles';
+import { useNavigation } from '@react-navigation/native';
 
-export default function EventsHeader() {
+export default function EventsHeader({ pageName }) {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <SpaceBetweenRow>
                 <Row>
                     <TouchableOpacity>
-                        <Svg.BackIcon />
+                        <Svg.BackIcon onPress={() => { navigation?.goBack() }} />
                     </TouchableOpacity>
-                    <MText style={styles.title}>Groups</MText>
-                </Row>
-                <Row>
-                    <TouchableOpacity style={Styles.horizontalMarginL}>
-                        <Svg.SearchBIcon />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Svg.ThreeDotsIcon />
-                    </TouchableOpacity>
+                    <MText style={styles.title}>{pageName}</MText>
                 </Row>
             </SpaceBetweenRow>
         </View>

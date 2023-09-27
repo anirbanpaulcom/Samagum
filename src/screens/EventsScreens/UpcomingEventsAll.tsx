@@ -1,23 +1,23 @@
 import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Container, Row, SpaceBetweenRow } from '../../components/Wrapper'
-import EventsHeader from './container/EventsHeader'
+import EventsHeader from '../events/container/EventsHeader'
 import images from '../../assets/images'
 import MText from '../../components/Text'
-import Svg from '../../assets/svg'
-import { Colors, Styles } from '../../styles'
+import { Colors,Styles } from '../../styles'
 import { Size } from '../../constants'
 import CustomScroll from '../../components/CustomScroll'
 import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Button'
+import Svg from '../../assets/svg'
 
-export default function EventsScreen() {
+export default function UpcomingEventsAll() {
     const navigation = useNavigation();
 
     return (
         <Container>
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-            <EventsHeader pageName={"Group"}/>
+            <EventsHeader pageName={"Upcoming Events"}/>
 
             <CustomScroll>
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((item, indx) => {
@@ -33,7 +33,7 @@ export default function EventsScreen() {
                                         Wed, Apr 28 • 5:30 PM
                                     </MText>
                                     <Button
-                                        SvgIcon={<Svg.SavedIcon />}
+                                        SvgIcon={<Svg.Pin />}
                                         background='#7476881A'
                                         style={styles.savedButton}
                                     />
@@ -51,7 +51,7 @@ export default function EventsScreen() {
                                     <MText style={styles.EventAddress}>
                                         • 50 Going
                                     </MText>
-                                    <Svg.UploadSmallIcon />
+                                    <Svg.ShareIcon/>
                                 </SpaceBetweenRow>
                             </View>
                         </Row>
