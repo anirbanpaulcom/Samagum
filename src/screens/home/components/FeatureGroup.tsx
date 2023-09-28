@@ -18,7 +18,7 @@ interface FeatureGroupProps {
 export default function FeatureGroup({ title, data,navigationPage }: FeatureGroupProps) {
     return (
         <View>
-            <HomeSectionTitle title={title} navigationPage={navigationPage} />
+            <HomeSectionTitle data={data} title={title} navigationPage={navigationPage} />
 
             <FlatList
                 data={data}

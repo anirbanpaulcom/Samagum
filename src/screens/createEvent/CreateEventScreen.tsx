@@ -10,19 +10,21 @@ import InputBox from '../../components/InputBox'
 import CustomScroll from '../../components/CustomScroll'
 import Svg from '../../assets/svg'
 import ImageButton from '../../components/ImageButton'
-import { createEventAPI } from '../../API/api'
 import DatePicker from '../../components/DatePicker'
 import moment from 'moment'
 import CustomDropdownComponent from '../../components/CustomDropdown'
+import { margin } from '../../styles/mixins'
+import { createEventAPI } from '../../API/new api'
+import UploadFile from './UploadFile'
 
 
 export const currencyList = [
-    { label: "10", value: "10" },
-    { label: "20", value: "20" },
-    { label: "30", value: "30" },
-    { label: "40", value: "40" },
-    { label: "50", value: "50" },
-    { label: "60", value: "60" },
+    { label: "INR", value: "INR" },
+]
+
+export const MethodList = [
+   { label: "Cash", value: "Cash"},
+   { label: "Others", value: ""}
 ]
 
 
@@ -39,12 +41,15 @@ export default function CreateEventScreen() {
     const [howToFindUs, setHowToFindUs] = useState('');
     const [newTipsAvailable, setNewTipsAvailable] = useState(false);
     const [allowedQuests, setAllowedQuests] = useState(false);
-    const [eventFees, setEventFees] = useState(false);
-    const [currency, setCurrency] = useState("");
+    const [eventFeesButton, setEventFeesButton] = useState(false);
+    const [currency, setCurrency] = useState('');
+    const [Method, setMethod] = useState('');
+    const [Fees, setFees] = useState('');
+
 
 
     const handleEventPublish = async () => {
-        const eventData = {
+        const data = {
             title: title,
             startDate: startDate,
             startTime: startTime,
@@ -57,16 +62,12 @@ export default function CreateEventScreen() {
             howToFindUs: howToFindUs,
             newTipsAvailable: newTipsAvailable,
             allowedQuests: allowedQuests,
-            eventFees: eventFees,
+            eventFees: Fees,
+            currency: currency,
+            Method: Method,
         };
-
-        // await createEvent(eventData, (result: any) => {
-        //     if (result !== null) {
-        //         console.log('Event created successfully:', result);
-        //     } else {
-        //         console.error('Error creating event');
-        //     }
-        // });
+        
+       createEventAPI(data);
     };
 
 
@@ -88,12 +89,10 @@ export default function CreateEventScreen() {
                         <View>
                             <MText style={styles.label}>Start</MText>
                             <DatePicker
-                                placeholderText="DOB"
                                 minimumDate=""
                                 mode="date"
                                 maximumDate={moment().subtract(18, "years").toDate()}
                                 value={startDate}
-                                DOBIcon={true}
                                 containerStyle={styles.datePickerContainer}
                                 onDateSelected={(val: string) => {
                                     setStartDate(val);
@@ -103,15 +102,13 @@ export default function CreateEventScreen() {
                         <View>
                             <MText style={styles.label}>Time</MText>
                             <DatePicker
-                                placeholderText="DOB"
                                 minimumDate=""
                                 mode="time"
                                 maximumDate={moment().subtract(18, "years").toDate()}
-                                value={startDate}
-                                DOBIcon={true}
+                                value={startTime}
                                 containerStyle={styles.datePickerContainer}
                                 onDateSelected={(val: string) => {
-                                    setStartDate(val);
+                                    setStartTime(val);
                                 }}
                             />
                         </View>
@@ -121,30 +118,26 @@ export default function CreateEventScreen() {
                         <View>
                             <MText style={styles.label}>End</MText>
                             <DatePicker
-                                placeholderText="DOB"
                                 minimumDate=""
                                 mode="date"
                                 maximumDate={moment().subtract(18, "years").toDate()}
-                                value={startDate}
-                                DOBIcon={true}
+                                value={endDate}
                                 containerStyle={styles.datePickerContainer}
                                 onDateSelected={(val: string) => {
-                                    setStartDate(val);
+                                    setEndDate(val);
                                 }}
                             />
                         </View>
                         <View>
                             <MText style={styles.label}>Time</MText>
                             <DatePicker
-                                placeholderText="DOB"
                                 minimumDate=""
                                 mode="time"
                                 maximumDate={moment().subtract(18, "years").toDate()}
-                                value={startDate}
-                                DOBIcon={true}
+                                value={endTime}
                                 containerStyle={styles.datePickerContainer}
                                 onDateSelected={(val: string) => {
-                                    setStartDate(val);
+                                    setEndTime(val);
                                 }}
                             />
                         </View>
@@ -152,20 +145,17 @@ export default function CreateEventScreen() {
 
                     <View>
                         <MText style={styles.label}>Upload event image</MText>
-                        <TouchableOpacity style={styles.fileContainer}>
-                            <Svg.UploadFilledIcon />
-                            <MText style={styles.BrowseFile}>Browse File</MText>
-                        </TouchableOpacity>
+                        <UploadFile onFileSelected={(file) => setEventImage(file)} />
                     </View>
 
                     <View>
                         <MText style={styles.label}>Description</MText>
                         <InputBox
                             value={""}
-                            onChangeText={(e) => { }}
+                            onChangeText={(text) => { setDescription(text)}}
                             placeholder={""}
-                            placeholderTextColor="#8D8D8D"
-                            inputContainer={styles.fileContainer}
+                            placeholderTextColor="#B8B7C8"
+                            inputContainer={{width:355, height:130, backgroundColor:"#F9F9F9"}}
                         />
                     </View>
 
@@ -186,22 +176,27 @@ export default function CreateEventScreen() {
                     />
 
                     <CreateEventInput
-                        value={title}
-                        placeholder=''
-                        label='How to find us (Optional)'
-                        onChange={(text) => setTitle(text)}
-                    />
-
-                    <CreateEventInput
                         placeholder=''
                         label='How to find us (Optional)'
                         onChange={(text) => setHowToFindUs(text)}
                     />
 
+                        <View>
+                        <MText style={styles.label}>Registration Notification(Optional) ?</MText>
+                        <InputBox
+                        value={""}
+                        onChangeText={(e) => { }}
+                        placeholder="Fee once payed is non-refundable"
+                        keyboardType="number-pad"
+                        placeholderTextColor="#8D8D8D"
+                        inputContainer={styles.inputStyle}
+                        />
+                        </View>
+
                     <MText style={styles.title}>Optional Settings</MText>
                     <View style={styles.optionalSettings}>
                         <RenderSwitch
-                            title='New Tips Available'
+                            title='Ask members a question'
                             swiched={newTipsAvailable}
                             onPress={() => setNewTipsAvailable(!newTipsAvailable)}
                         />
@@ -242,50 +237,65 @@ export default function CreateEventScreen() {
                     <View style={styles.optionalSettings}>
                         <RenderSwitch
                             title='Event Fees'
-                            swiched={eventFees}
-                            onPress={() => setEventFees(!eventFees)}
+                            swiched={eventFeesButton}
+                            onPress={() => setEventFeesButton(!eventFeesButton)}
                         />
                     </View>
-                    {eventFees && <View>
+                    {eventFeesButton && <View>
                         <MText style={styles.label}>Method</MText>
+                        <CustomDropdownComponent
+                                data={MethodList}
+                                placeholder=''
+                                value={{Method}}
+                                onChange={(val) => {
+                                    setMethod(val);
+                                }}
+                            />
+
+                        <SpaceBetweenRow>
+                            <View>
+                            <MText style={styles.label}>Currency</MText>
+                            <CustomDropdownComponent
+                                data={currencyList}
+                                placeholder=''
+                                value={currency}
+                                onChange={(val) => {
+                                    setCurrency(val);
+                                }}
+                                containerStyles={{ width:160,marginVertical:5}}
+                            />
+                            </View>
+                            <View>
+                            <MText style={styles.label}>Amount</MText>
+                            <InputBox
+                            value={""}
+                            onChangeText={(val) => { setFees(val)}}
+                            placeholder=""
+                            keyboardType="number-pad"
+                            placeholderTextColor="#8D8D8D"
+                            inputContainer={{width:160, marginTop:10}}
+                        />
+                            </View>
+                        </SpaceBetweenRow>
+
+                     {Method && 
+
+                     <View>
+                     <MText style={styles.label}>Cash Collection Notification ?</MText>
                         <InputBox
                             value={""}
                             onChangeText={(e) => { }}
                             placeholder=""
-                            keyboardType="number-pad"
                             placeholderTextColor="#8D8D8D"
                             inputContainer={styles.inputStyle}
                         />
-
-                        <SpaceBetweenRow>
-                            <CustomDropdownComponent
-                                data={currencyList}
-                                placeholder=''
-                                value={currency}
-                                leftIcon={<Svg.IcRoundIcon />}
-                                onChange={(val) => {
-                                    setCurrency(val);
-                                }}
-                                containerStyles={{ width: Size.wWidth / 2.3 }}
-                            />
-                            <CustomDropdownComponent
-                                data={currencyList}
-                                placeholder=''
-                                value={currency}
-                                leftIcon={<Svg.IcRoundIcon />}
-                                onChange={(val) => {
-                                    setCurrency(val);
-                                }}
-                                containerStyles={{ width: Size.wWidth / 2.3 }}
-                            />
-                        </SpaceBetweenRow>
-
+                      </View>
+                    }
                         <MText style={styles.label}>Additional refund policy (Optional)</MText>
                         <InputBox
                             value={""}
                             onChangeText={(e) => { }}
-                            placeholder=""
-                            keyboardType="number-pad"
+                            placeholder="Fee once payed is non-refundable"
                             placeholderTextColor="#8D8D8D"
                             inputContainer={styles.inputStyle}
                         />

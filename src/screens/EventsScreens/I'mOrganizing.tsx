@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Button'
 import Svg from '../../assets/svg'
 
-export default function ImOrganizingScreen() {
+export default function ImOrganizingScreen({data}) {
     const navigation = useNavigation();
 
     return (

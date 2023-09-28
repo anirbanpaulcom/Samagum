@@ -81,7 +81,7 @@ export default function UpcommingEvents({ title, data, navigationPage}: Upcommin
 
     return (
         <View>
-            <HomeSectionTitle title={title} navigationPage={navigationPage}/>
+            <HomeSectionTitle data={data} title={title} navigationPage={navigationPage}/>
             <FlatList
                 data={data}
                 horizontal

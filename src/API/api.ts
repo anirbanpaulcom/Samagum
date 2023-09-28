@@ -530,32 +530,6 @@ export async function getAllGroupMenbersCount(callBack: (result: any) => void) {
 // ===================================== Done on 22/09/2023 ==================================================
 
 
-export const createEventAPI = async (data: any, callBack: (result: any) => void) => {
-    try {
-        const token = await Auth.getLocalStorageData("token");
-
-        if (token !== null) {
-            const headers = {
-                'Authorization': `Bearer ${token}`,
-            };
-
-            const response = await axios.post(
-                'https://dev.samagum.com/api/v1/group/create_event?group=demo-group-from-api-1',
-                data,
-                { headers }
-            );
-
-            console.log('\n\n createEvent result:', response.data);
-            callBack(response.data);
-        } else {
-            callBack(null);
-            console.error('Token not found');
-        }
-    } catch (error) {
-        callBack(null);
-        console.error('\n\n createEvent error:', error);
-    }
-};
 
 
 export const addBioAPI = async (data: any) => {

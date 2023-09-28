@@ -17,7 +17,7 @@ import FilterModal from './components/FilterModal'
 import { fetchEventsThatYouJoined, fetchHomeDataAfterLogin, fetchMyAttendingEvents, fetchMySavedEvents } from '../../API/api'
 import AttendingEvents from './components/AttendingEvents'
 import JoinedGroups from './components/JoinedGroups'
-import LoginScreen from '../auth/LoginScreen'
+import { AllMyGroupsApi, ImOrganizingApi } from '../../API/new api'
 
 export default function HomeScreen({ navigation }: any) {
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -25,6 +25,9 @@ export default function HomeScreen({ navigation }: any) {
     const [attendingEvents, setAttendingEvents] = useState<any>([]);
     const [savedEvents, setSavedEvents] = useState<any>([]);
     const [EventsThatYouJoined, setEventsThatYouJoined] = useState<any>([]);
+    const [ImOrganizingEvents, setImOrganizingEvents] = useState<any>([]);
+    const [joinedGroups, setJoinedGroups] = useState<any>([]);
+
 
 
     const nodata=[];
@@ -51,6 +54,18 @@ export default function HomeScreen({ navigation }: any) {
         fetchEventsThatYouJoined((res) => {
             if (res !== null && res?.success?.toString() === "true") {
                 setEventsThatYouJoined(res?.data)
+            }
+        });
+
+        ImOrganizingApi((res) => {
+            if (res !== null && res?.success?.toString() === "true") {
+                setImOrganizingEvents(res?.data)
+            }
+        });
+
+        AllMyGroupsApi((res) => {
+            if (res !== null && res?.success?.toString() === "true") {
+                setJoinedGroups(res?.data)
             }
         });
     }, []);
@@ -120,19 +135,19 @@ export default function HomeScreen({ navigation }: any) {
 
                     <UpcommingEvents
                         title="I’m Organizing"
-                        data={nodata}
+                        data={ImOrganizingEvents}
                         navigationPage={"ImOrganizingScreen"}
                     />
 
                     <JoinedGroups
                         title="Groups I Own"
-                        data={nodata}
+                        data={joinedGroups}
                         navigationPage={"GroupIOwnScreen"}
                     />
 
                     <JoinedGroups
                         title="Joined Groups"
-                        data={nodata}
+                        data={joinedGroups}
                         navigationPage={"JoinedGroupScreen"}
                     />
 

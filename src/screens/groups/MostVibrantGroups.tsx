@@ -10,7 +10,7 @@ import { Size } from '../../constants'
 import CustomScroll from '../../components/CustomScroll'
 import { getAllGroupsAPI } from '../../API/api'
 
-export default function MostVibrantGroupsScreen( ) {
+export default function MostVibrantGroupsScreen({data}) {
     const [groupsData, setGroupsData] = useState([]);
 
     useEffect(() => {
