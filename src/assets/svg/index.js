@@ -76,7 +76,8 @@ import EditPencil from './Vector.svg'
 import DownArrow from './Vector 20.svg'
 import Twitter from './Group 33528.svg'
 import Pin from './pin-svgrepo-com 1.svg'
-
+import ClockIcon from './carbon_time.svg';
+import DateIcon from './clarity_date-line.svg'
 
 export default {
     HomeIcon,
@@ -156,5 +157,7 @@ export default {
     EditPencil,
     DownArrow,
     Twitter,
-    Pin
+    Pin,
+    ClockIcon,
+    DateIcon,
 }

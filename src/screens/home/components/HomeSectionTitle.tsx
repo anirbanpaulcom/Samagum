@@ -12,7 +12,7 @@ interface HomeSectionTitleProps {
     onPress?: () => void;
 }
 
-export default function HomeSectionTitle({ title,navigationPage, onPress }: HomeSectionTitleProps) {
+export default function HomeSectionTitle({ title,navigationPage,data, onPress }: HomeSectionTitleProps) {
 
     const navigation = useNavigation();
 
@@ -26,7 +26,7 @@ export default function HomeSectionTitle({ title,navigationPage, onPress }: Home
                 style={{ marginTop: 20, marginRight: 20 }}
                 iconPosition="right"
                 SvgIcon={<Svg.RightChevronIcon />}
-                onPress={() => { navigation?.navigate(navigationPage)}}
+                onPress={() => { navigation?.navigate(navigationPage, data)}}
             />
         </SpaceBetweenRow>
     )

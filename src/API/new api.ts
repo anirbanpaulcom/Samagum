@@ -1,52 +1,5 @@
 import Auth from "../constants/Auth";
 
-export const createEventAPI = async (eventData: any, callBack: (result: any) => void) => {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 22|vHseWF95j1KzXsZPa4OmEnzgG2nWxLLvYbNFH4nDRDfBGT89p6qu62DDAPAkUq5ol4UuRGAOOmMFgiK8WO2m9QUBL48iGc8ybTTi");
-    
-    var formdata = new FormData();
-    formdata.append("event_title", eventData.title);
-    formdata.append("event_start_date", eventData.startDate);
-    formdata.append("event_start_time", eventData.startTime);
-    formdata.append("event_end_date", eventData.endDate);
-    formdata.append("event_end_time", eventData.endTime);
-    formdata.append("event_description", eventData.description);
-    formdata.append("event_is_online", eventData.isOnlineEvent);
-    formdata.append("event_online_meeting_link", "");
-    formdata.append("event_address_name", eventData.address);
-    formdata.append("event_address_location_name", "");
-    formdata.append("event_address_address_1", "");
-    formdata.append("event_address_lat", "");
-    formdata.append("event_address_lng", "");
-    formdata.append("event_address_country", "");
-    formdata.append("event_address_state", "");
-    formdata.append("event_address_city", "");
-    formdata.append("event_address_zip", "");
-    formdata.append("event_how_to_find_us", eventData.howToFindUs);
-    formdata.append("optional_setting_allowed_guest", eventData.allowedQuests);
-    formdata.append("event_rsvp_question", "");
-    formdata.append("optional_setting_rsvp_question", "0");
-    formdata.append("optional_setting_event_fee", "0");
-    formdata.append("event_fee_method", "");
-    formdata.append("event_fee_currency_id", "");
-    formdata.append("event_fee_amount", eventData.eventFees);
-    formdata.append("event_fee_additional_refund_policy", "");
-    formdata.append("event_featured_photo_file", eventData.eventImage);
-    formdata.append("status", "publish");
-     
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formdata,
-      redirect: 'follow'
-    };
-    
-    fetch("https://dev.samagum.com/api/v1/group/create_event?group=demo-group-from-api-1", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-};
-
 
 export const addBioAPI = async ( data :any) => {
     try {
@@ -336,3 +289,118 @@ fetch("https://dev.samagum.com/api/v1/signout", requestOptions)
 
 }
 }
+
+
+export const ImOrganizingApi = async (callBack: (result: any) => void) => {
+
+  const token = await Auth.getLocalStorageData("token");
+
+
+  if (token !== null) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+  };
+
+var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/my_events/from_groups_you_organize", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+  }}
+
+
+
+export const AllMyGroupsApi = async (callBack: (result: any) => void) => {
+
+    const token = await Auth.getLocalStorageData("token");
+  
+  
+    if (token !== null) {
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+    }
+
+
+var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/groups?tab=member&page=1", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+}
+}
+
+
+export const createEventAPI = async (data: any, callBack: (result: any) => void) => {
+  const token = await Auth.getLocalStorageData("token");
+
+  if (token !== null) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+
+    var formData = new FormData(); 
+
+    formData.append("event_title", data?.title);
+    formData.append("event_start_date", "2024-12-01");
+    formData.append("event_start_time", "12:25");
+    formData.append("event_end_date", "2024-12-02");
+    formData.append("event_end_time", "11:00");
+    formData.append("event_description", data?.description);
+    formData.append("event_is_online", data.isOnlineEvent ? 1 : 0);
+    formData.append("event_online_meeting_link", "https://google.com");
+    formData.append("event_address_name", "rtre");
+    formData.append("event_address_location_name", "sd");
+    formData.append("event_address_address_1", "sdf");
+    formData.append("event_address_lat", "");
+    formData.append("event_address_lng", "");
+    formData.append("event_address_country", "");
+    formData.append("event_address_state", "");
+    formData.append("event_address_city", "");
+    formData.append("event_address_zip", "");
+    formData.append("event_how_to_find_us", data?.howToFindUs);
+    formData.append("optional_setting_allowed_guest", "0");
+    formData.append("event_rsvp_question", data?.newTipsAvailable);
+    formData.append("optional_setting_rsvp_question", "0");
+    formData.append("optional_setting_event_fee", "0");
+    formData.append("event_fee_method", data?.Method);
+    formData.append("event_fee_currency_id", data?.currency);
+    formData.append("event_fee_amount", data?.eventFees);
+    formData.append("event_fee_additional_refund_policy", "");
+    formData.append("event_featured_photo_file", data.eventImage);
+    formData.append("status", "publish");
+
+    console.log(data, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: headers,
+      body: formData,
+      redirect: 'follow',
+    };
+
+    fetch("https://dev.samagum.com/api/v1/group/create_event?group=demo-group-from-api-1", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => console.log('error', error));
+  }
+};

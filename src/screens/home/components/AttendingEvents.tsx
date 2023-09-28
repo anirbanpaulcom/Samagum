@@ -29,7 +29,7 @@ export default function AttendingEvents({ title, data, navigationPage}: Attendin
 
     return (
         <View>
-            <HomeSectionTitle title={title}  navigationPage={navigationPage}/>
+            <HomeSectionTitle title={title} data={data} navigationPage={navigationPage}/>
 
             <FlatList
                 data={data}

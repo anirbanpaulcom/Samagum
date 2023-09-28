@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Button'
 import Svg from '../../assets/svg'
 
-export default function MyWatchListScreen() {
+export default function MyWatchListScreen({data}) {
     const navigation = useNavigation();
 
     return (

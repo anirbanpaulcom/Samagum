@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Button'
 import Svg from '../../assets/svg'
 
-export default function EventsFromJoinedGroupScreen() {
+export default function EventsFromJoinedGroupScreen({data}) {
     const navigation = useNavigation();
 
     return (

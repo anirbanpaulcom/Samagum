@@ -10,7 +10,7 @@ import { Size } from '../../constants'
 import CustomScroll from '../../components/CustomScroll'
 import { getAllGroupsAPI } from '../../API/api'
 
-export default function JoinedGroupScreen( ) {
+export default function JoinedGroupScreen({data}) {
     const [groupsData, setGroupsData] = useState([]);
 
     useEffect(() => {

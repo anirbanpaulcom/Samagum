@@ -18,7 +18,7 @@ interface JoinedGroupsProps {
 export default function JoinedGroups({ title, data,navigationPage }: JoinedGroupsProps) {
     return (
         <View>
-            <HomeSectionTitle title={title} navigationPage={navigationPage}/>
+            <HomeSectionTitle data={data} title={title} navigationPage={navigationPage}/>
 
             <FlatList
                 data={data}
