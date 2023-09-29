@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StatusBar, StyleSheet, TextInput, TouchableOpacity, ImageBackground } from 'react-native'
 import React, { useState } from 'react'
 import { Container, Row, SpaceBetweenRow } from '../../components/Wrapper'
 import SettingsHeader from '../settings/container/SettingsHeader'
@@ -16,6 +16,7 @@ import CustomDropdownComponent from '../../components/CustomDropdown'
 import { margin } from '../../styles/mixins'
 import { createEventAPI } from '../../API/new api'
 import UploadFile from './UploadFile'
+import { launchImageLibrary } from 'react-native-image-picker';
 
 
 export const currencyList = [
@@ -27,6 +28,15 @@ export const MethodList = [
    { label: "Others", value: ""}
 ]
 
+export const ImageOption ={
+        title: 'Select Image',
+        type: 'library',
+        options: {
+          selectionLimit: 1,
+          mediaType: 'photo',
+          includeBase64: false,
+        },
+    }
 
 export default function CreateEventScreen() {
     const [title, setTitle] = useState('');
@@ -47,7 +57,7 @@ export default function CreateEventScreen() {
     const [Fees, setFees] = useState('');
 
 
-
+   
     const handleEventPublish = async () => {
         const data = {
             title: title,
@@ -70,6 +80,12 @@ export default function CreateEventScreen() {
        createEventAPI(data);
     };
 
+    
+   const openGallary = async()=>{
+    const image = await launchImageLibrary(ImageOption);
+    console.log(image,"00000000000000000000000");
+    setEventImage(image.assets[0].uri);
+   }
 
     return (
         <Container>
@@ -144,9 +160,22 @@ export default function CreateEventScreen() {
                     </SpaceBetweenRow>
 
                     <View>
-                        <MText style={styles.label}>Upload event image</MText>
-                        <UploadFile onFileSelected={(file) => setEventImage(file)} />
-                    </View>
+    <MText style={styles.label}>Upload event image</MText>
+    <TouchableOpacity onPress={openGallary} style={styles.fileContainer}>
+        {eventImage ? (
+            <ImageBackground
+                source={{ uri: eventImage }}
+                style={{ width: "100%", height: "100%",borderRadius: 14 }}
+            />
+        ) : (
+            <>
+                <Svg.UploadFilledIcon />
+                <Text style={styles.BrowseFile}>Browse File</Text>
+            </>
+        )}
+    </TouchableOpacity>
+</View>
+
 
                     <View>
                         <MText style={styles.label}>Description</MText>

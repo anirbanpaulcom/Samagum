@@ -319,7 +319,7 @@ fetch("https://dev.samagum.com/api/v1/my_events/from_groups_you_organize", reque
 
 
 
-export const AllMyGroupsApi = async (callBack: (result: any) => void) => {
+export const MyGroupsApi = async (callBack: (result: any) => void) => {
 
     const token = await Auth.getLocalStorageData("token");
   
@@ -328,22 +328,20 @@ export const AllMyGroupsApi = async (callBack: (result: any) => void) => {
       const headers = {
         'Authorization': `Bearer ${token}`,
     }
-
-
-var formdata = new FormData();
-
-var requestOptions = {
-  method: 'GET',
-  headers: headers,
-  body: formdata,
-  redirect: 'follow'
-};
-
-fetch("https://dev.samagum.com/api/v1/groups?tab=member&page=1", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-
+    
+    var formdata = new FormData();
+    
+    var requestOptions = {
+      method: 'GET',
+      headers: headers,
+      body: formdata,
+      redirect: 'follow'
+    };
+    
+    fetch("https://dev.samagum.com/api/v1/groups?tab=organizer&page=1", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
 }
 }
 
@@ -384,10 +382,10 @@ export const createEventAPI = async (data: any, callBack: (result: any) => void)
     formData.append("event_fee_currency_id", data?.currency);
     formData.append("event_fee_amount", data?.eventFees);
     formData.append("event_fee_additional_refund_policy", "");
-    formData.append("event_featured_photo_file", data.eventImage);
+    formData.append("event_featured_photo_file", {uri: data.eventImage, name: 'image.jpg', type: 'image/jpeg'});
     formData.append("status", "publish");
 
-    console.log(data, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    console.log(data.eventImage, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
     var requestOptions = {
       method: 'POST',

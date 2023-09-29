@@ -14,10 +14,10 @@ import ExploreGroups from './components/ExploreGroups'
 import FeatureGroup from './components/FeatureGroup'
 import MostActiveGroup from './components/MostActiveGroup'
 import FilterModal from './components/FilterModal'
-import { fetchEventsThatYouJoined, fetchHomeDataAfterLogin, fetchMyAttendingEvents, fetchMySavedEvents } from '../../API/api'
+import { fetchEventsThatYouJoined, fetchHomeDataAfterLogin, fetchMyAttendingEvents, fetchMySavedEvents, getAllGroupsAPI } from '../../API/api'
 import AttendingEvents from './components/AttendingEvents'
 import JoinedGroups from './components/JoinedGroups'
-import { AllMyGroupsApi, ImOrganizingApi } from '../../API/new api'
+import { AllMyGroupsApi, ImOrganizingApi, MyGroupsApi } from '../../API/new api'
 
 export default function HomeScreen({ navigation }: any) {
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -63,12 +63,12 @@ export default function HomeScreen({ navigation }: any) {
             }
         });
 
-        AllMyGroupsApi((res) => {
-            if (res !== null && res?.success?.toString() === "true") {
-                setJoinedGroups(res?.data)
+        getAllGroupsAPI((res) => {
+            if (res !== null) {
+                setJoinedGroups(res?.data?.groups)
             }
-        });
-    }, []);
+        })
+    }, [homeData]);
 
     return (
         <Container>
@@ -135,7 +135,7 @@ export default function HomeScreen({ navigation }: any) {
 
                     <UpcommingEvents
                         title="I’m Organizing"
-                        data={ImOrganizingEvents}
+                        data={homeData?.events_from_groups_you_organize} //imorganizingdata
                         navigationPage={"ImOrganizingScreen"}
                     />
 
