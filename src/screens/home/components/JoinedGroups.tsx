@@ -16,6 +16,7 @@ interface JoinedGroupsProps {
 }
 
 export default function JoinedGroups({ title, data,navigationPage }: JoinedGroupsProps) {
+    
     return (
         <View>
             <HomeSectionTitle data={data} title={title} navigationPage={navigationPage}/>
@@ -34,7 +35,6 @@ export default function JoinedGroups({ title, data,navigationPage }: JoinedGroup
                             </View>
                             <View style={{ paddingHorizontal: 8 }}>
                                 <MText style={styles.title}>
-                                    {/* ISGSITS Alumni Chapt... */}
                                     {item?.title}
                                 </MText>
                                 <SpaceBetweenRow style={{marginVertical:10}}>

@@ -1,5 +1,5 @@
 import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, SpaceBetweenRow } from '../../components/Wrapper'
 import EventsHeader from '../events/container/EventsHeader'
 import images from '../../assets/images'
@@ -10,9 +10,21 @@ import CustomScroll from '../../components/CustomScroll'
 import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Button'
 import Svg from '../../assets/svg'
+import { fetchMySavedEvents } from '../../API/api'
 
-export default function MyWatchListScreen({data}) {
+export default function MyWatchListScreen() {
     const navigation = useNavigation();
+
+    const [data, setData]=useState('');
+
+
+    useEffect(() => {
+        fetchMySavedEvents((res) => {
+            if (res !== null && res?.success?.toString() === "true") {
+                setData(res?.data)
+            }
+        });
+    }); 
 
     return (
         <Container>
@@ -20,17 +32,17 @@ export default function MyWatchListScreen({data}) {
             <EventsHeader pageName={"My Watchlist"}/>
 
             <CustomScroll>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((item, indx) => {
+                {data && data.map((data, indx) => {
                     return (
                         <Row style={styles.groupCard} key={indx}>
                             <Image
-                                source={images.homeItem3} resizeMode="stretch"
+                                source={{ uri: data?.image }} resizeMode="stretch"
                                 style={{ width: 100, height: 110 }}
                             />
                             <View style={{ paddingHorizontal: 8, width: Size.wWidth / 1.1 - 115, marginLeft: 5 }}>
                                 <SpaceBetweenRow>
                                     <MText style={styles.dateNTime}>
-                                        Wed, Apr 28 • 5:30 PM
+                                    {data.start_date}   {data.start_time}
                                     </MText>
                                     <Button
                                         SvgIcon={<Svg.Pin />}
@@ -39,7 +51,7 @@ export default function MyWatchListScreen({data}) {
                                     />
                                 </SpaceBetweenRow>
                                 <MText style={styles.groupCardTitle}>
-                                    Jo Malone London’s Mother’s Day Presents
+                                {data?.title}
                                 </MText>
                                 <Row style={{ marginVertical: 4, marginTop: 8 }}>
                                     <Svg.LocationSmallIcon />

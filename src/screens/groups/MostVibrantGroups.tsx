@@ -13,13 +13,7 @@ import { getAllGroupsAPI } from '../../API/api'
 export default function MostVibrantGroupsScreen({data}) {
     const [groupsData, setGroupsData] = useState([]);
 
-    useEffect(() => {
-        getAllGroupsAPI((res) => {
-            if (res !== null) {
-                setGroupsData(res?.data?.groups)
-            }
-        })
-    }, []);
+ 
 
     return (
         <Container>   

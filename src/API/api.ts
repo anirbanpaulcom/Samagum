@@ -64,7 +64,7 @@ export async function getAllGroupsAPI(callBack: (result: any) => void) {
         redirect: 'follow'
     };
 
-    fetch("https://dev.samagum.com/api/v1/groups?tab=member&page=1", requestOptions)
+    fetch("https://dev.samagum.com/api/v1/groups?tab=organizer&page=1", requestOptions)
         .then(response => response.json())
         .then(result => {
             console.log('\n\n getAllGroupsAPI result: ', result)
@@ -360,7 +360,7 @@ export const getMyGroupsApi = async (callBack: (result: any) => void) => {
         redirect: 'follow'
     };
 
-    await fetch("https://dev.samagum.com/api/v1/group/setting/members?group=testing-api", requestOptions)
+    await fetch("https://dev.samagum.com/api/v1/groups?tab=organizer&page=1", requestOptions)
         .then(response => response.json())
         .then(result => {
             console.log('\n\n getMyGroupsApi result: ', result)

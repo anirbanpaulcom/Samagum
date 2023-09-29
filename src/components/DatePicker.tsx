@@ -66,8 +66,8 @@ export default function DatePicker(props) {
         mode={mode} 
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
-        minimumDate={props?.minimumDate ? new Date(props.minimumDate) : undefined} 
-        maximumDate={props?.maximumDate ? new Date(props.maximumDate) : undefined} 
+        minimumDate={new Date("1900-01-01")}
+        maximumDate={new Date("3030-12-31")}
       />
     </View>
   );
