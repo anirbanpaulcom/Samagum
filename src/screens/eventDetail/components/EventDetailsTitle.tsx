@@ -8,12 +8,9 @@ import images from '../../../assets/images'
 
 export default function EventDetailsTitle({ title }) {
 
-
-
-
     return (
         <View style={{ padding: 16 }}>
-            <MText style={styles.title}>{title ?? 'test event'}</MText>
+            <MText style={styles.title}>{title}</MText>
 
             <Row style={Styles.marginTopXL}>
                 <View style={styles.iconbg}>

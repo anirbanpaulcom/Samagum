@@ -16,6 +16,10 @@ import ImageButton from '../../components/ImageButton';
 import Toast from 'react-native-simple-toast';
 import Auth from '../../constants/Auth';
 import { setUser } from '../../redux/reducer/user';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import { Text } from 'react-native-paper';
+
 
 const loginList = [
     {
@@ -40,6 +44,7 @@ const loginList = [
 
 export default function LoginScreen({ navigation }: any) {
     const dispatch = useDispatch();
+
     const inputRef = React.useRef();
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
@@ -78,7 +83,7 @@ export default function LoginScreen({ navigation }: any) {
                                 .then(() => {
                                     dispatch(setUser(result?.data));
                                     setLoading(false)
-                                    navigation.navigate('Root');
+                                    navigation.navigate('WelcomeScreen');
                                     Toast.show(result?.message, 1000);
                                 }).catch((e) => {
                                     setLoading(false)
@@ -157,11 +162,12 @@ export default function LoginScreen({ navigation }: any) {
                     onPress={() => { }}
                 />
 
-                <Button
-                    mode="text"
-                    title="Forgot Password?"
+                <TouchableOpacity
                     textStyle={styles.forgotPassword}
-                />
+                    onPress={() => { navigation?.navigate("ForgotPasswordScreen") }}
+                >
+                    <Text>Forgot Password?</Text>
+                </TouchableOpacity>
             </SpaceBetweenRow>
 
             <ImageButton

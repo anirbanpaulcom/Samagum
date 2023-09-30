@@ -77,10 +77,9 @@ export default function EditProfileScreen() {
 
         updateUserProfile(data, (res) => {
             if (res !== null) {
-                if (res?.success === true) {
                     setProfiledata(res?.data)
                 }
-            }
+            
         })
     }
 

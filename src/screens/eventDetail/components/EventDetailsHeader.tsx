@@ -1,5 +1,5 @@
 import {ImageBackground, StyleSheet} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import images from '../../../assets/images';
 import {Row, SpaceBetweenRow} from '../../../components/Wrapper';
 import HeaderLeft from '../../../components/HeaderLeft';
@@ -9,9 +9,11 @@ import {Styles} from '../../../styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { AddFavEvent } from '../../../API/new api';
 
-export default function EventDetailsHeader({eventData}) {
-  async function handleEventSave(eventData: any) {
-    await AddFavEvent(eventData, (result) => {
+export default function EventDetailsHeader({data}) {
+
+
+  async function handleEventSave(data: any) {
+    await AddFavEvent(data, (result) => {
       if (result !== null) {
         console.log('added successfully:', result);
     }else {
@@ -23,7 +25,7 @@ export default function EventDetailsHeader({eventData}) {
 
     return (
         <ImageBackground
-            source={images.eventDetails}
+            source={{ uri: data?.image }}
             style={{ width: "100%", height: 244, paddingTop: 32 }}
         >
             <SpaceBetweenRow>

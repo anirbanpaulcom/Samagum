@@ -22,7 +22,7 @@ export default function CategoryItem({ item }: CategoryItemProps) {
                         source={images?.category}
                         style={styles.categoryImage}
                     />
-                    <MText style={styles.text}>Practice a hobby with others</MText>
+                    <MText style={styles.text}>Art & Culture</MText>
                 </Row>
                 <CheckSVG isChecked={isChecked} />
             </SpaceBetweenRow>

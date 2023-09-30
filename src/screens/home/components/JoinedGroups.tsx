@@ -35,7 +35,7 @@ export default function JoinedGroups({ title, data,navigationPage }: JoinedGroup
                             </View>
                             <View style={{ paddingHorizontal: 8 }}>
                                 <MText style={styles.title}>
-                                    {item?.title}
+                                    {item?.name}
                                 </MText>
                                 <SpaceBetweenRow style={{marginVertical:10}}>
                                     <Row>

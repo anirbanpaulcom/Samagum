@@ -15,23 +15,22 @@ export default function InterestsScreen({ navigation }: any) {
     const [loading, setLoading] = useState(false);
 
     function handleSubmit() {
-        dispatch(setUser({}));
-        // navigation?.navigate("Root")
+    
+        navigation?.navigate("Root")
     }
 
     return (
         <CustomScroll>
             <View style={styles.container}>
                 <BackHeader onPress={() => { navigation?.goBack() }} />
-                <MText style={styles.titleWrapper}>Interests</MText>
+                <MText style={styles.titleWrapper}>Inclinations</MText>
                 <MText style={styles.subtitleText}>
-                    Pick your favorite interests to find groups and events related to them
+                   Pickup Inclinations in your interests areas.
                 </MText>
 
                 <SearchContainer />
-
                 <ImageButton
-                    title="NEXT"
+                    title="DONE"
                     onPress={handleSubmit}
                     loading={loading}
                 />
