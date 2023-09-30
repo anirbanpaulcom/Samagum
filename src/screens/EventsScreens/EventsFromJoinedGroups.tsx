@@ -51,7 +51,7 @@ export default function EventsFromJoinedGroupScreen() {
                                     />
                                 </SpaceBetweenRow>
                                 <MText style={styles.groupCardTitle}>
-                                    Jo Malone London’s Mother’s Day Presents
+                                    {data?.title}
                                 </MText>
                                 <Row style={{ marginVertical: 4, marginTop: 8 }}>
                                     <Svg.LocationSmallIcon />

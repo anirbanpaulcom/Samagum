@@ -66,6 +66,7 @@ export default function HomeScreen({ navigation }: any) {
         getAllGroupsAPI((res) => {
             if (res !== null) {
                 setJoinedGroups(res?.data?.groups)
+                console.log(joinedGroups, "oooooooooooooooooooooooooooooooooo")
             }
         })
     }, [homeData]);

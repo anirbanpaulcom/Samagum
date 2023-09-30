@@ -7,7 +7,7 @@ export const addBioAPI = async ( data :any) => {
   
       if (token !== null) {
         const headers = {
-            'Authorization': `Bearer 22|vHseWF95j1KzXsZPa4OmEnzgG2nWxLLvYbNFH4nDRDfBGT89p6qu62DDAPAkUq5ol4UuRGAOOmMFgiK8WO2m9QUBL48iGc8ybTTi`,
+          'Authorization': `Bearer ${token}`
         };
   
         const response = await axios.post(
@@ -35,7 +35,7 @@ const token = await Auth.getLocalStorageData("token");
   
       if (token !== null) {
         const headers = {
-            'Authorization': `Bearer 22|vHseWF95j1KzXsZPa4OmEnzgG2nWxLLvYbNFH4nDRDfBGT89p6qu62DDAPAkUq5ol4UuRGAOOmMFgiK8WO2m9QUBL48iGc8ybTTi`,
+          'Authorization': `Bearer ${token}`,
         };
   
         const response = await axios.post(
@@ -57,35 +57,41 @@ const token = await Auth.getLocalStorageData("token");
 };
 
 
-export const updateUserProfile = async (data: any) => {
-    try {
-      const token = await Auth.getLocalStorageData("token");
-  
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-      };
-  
-      const formdata = new FormData();
-      formdata.append("first_name", data?.firstName);
-      formdata.append("last_name", data?.lastName);
-      formdata.append("email", data?.email);
-      formdata.append("phone", data?.phone);
-      formdata.append("birthdate", data?.dob);
-      formdata.append("gender", data?.gender);
-      formdata.append("country", data?.country);
-      formdata.append("city", data?.city);
-  
-      const response = await axios.post("https://dev.samagum.com/api/v1/account/update-details", formdata, {
-        headers,
-      })
-  
-      console.log('updateUserProfile result:', response.data);
-    } catch (error) {
-      console.error('updateUserProfile error:', error);
-    }
-}
+export const updateUserProfile = async (data:any ,callBack: (result: any) => void) => {
 
+    const token = await Auth.getLocalStorageData("token");
 
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+
+var formdata = new FormData();
+formdata.append("first_name", data?.firstName);
+formdata.append("last_name", data?.lastName);
+formdata.append("email", data?.email);
+formdata.append("phone", data?.phone);
+formdata.append("birthdate", data?.dob);
+formdata.append("gender", data?.gender);
+formdata.append("profile_picture", null);
+formdata.append("username", null);
+formdata.append("timezone", null);
+formdata.append("bio", null);
+
+var requestOptions = {
+  method: 'POST',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/account/update-details", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result, "zzzzzzzzzzzzzzz"))
+  .catch(error => console.log('error', error));
+
+  }
+
+  
 export const eventDetailsApi = async (callBack: (result: any) => void) => {
     
       const token = await Auth.getLocalStorageData("token");
@@ -93,8 +99,8 @@ export const eventDetailsApi = async (callBack: (result: any) => void) => {
   
       if (token !== null) {
         const headers = {
-          'Authorization': `Bearer 22|vHseWF95j1KzXsZPa4OmEnzgG2nWxLLvYbNFH4nDRDfBGT89p6qu62DDAPAkUq5ol4UuRGAOOmMFgiK8WO2m9QUBL48iGc8ybTTi`,
-        };
+          'Authorization': `Bearer ${token}`
+      };
   
         var formdata = new FormData();
         
@@ -121,8 +127,8 @@ export const changePasswordApi = async (currentPassword: any,newPassword: any,ca
 
     if (token !== null) {
       const headers = {
-        'Authorization': `Bearer 22|QM5SkoDhkmLjCU3WZQZmHYqPWJDZDxL9MDbeWPt5YTiIWjzAvkfAPWX5BCoZ5WeGbSpeHugklKWm5FBw0F70Whn4UF1EDL1oNVd7`,
-    };
+        'Authorization': `Bearer ${token}`,
+      };
 
 
     
@@ -402,3 +408,34 @@ export const createEventAPI = async (data: any, callBack: (result: any) => void)
       .catch(error => console.log('error', error));
   }
 };
+
+
+
+
+
+
+
+export const notification = async (data: any, callBack: (result: any) => void) => {
+  const token = await Auth.getLocalStorageData("token");
+
+  if (token !== null) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+
+
+var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/profile/notifications", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+}}

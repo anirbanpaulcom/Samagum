@@ -33,14 +33,14 @@ export default function CategoriesScreen({ navigation }: any) {
         <CustomScroll style={styles.container}>
             <BackHeader onPress={() => { navigation?.goBack() }} />
             <Row style={Styles.marginTopMid}>
-                <MText style={styles.titleWrapper}>Welcome</MText>
+                <MText style={styles.titleWrapper}>Interest Area</MText>
                 <View style={Styles.horizontalMarginL}>
                     <Svg.HandShakeIcon />
                 </View>
             </Row>
             <View style={styles.subtitleWrapper}>
                 <MText style={styles.subtitleText}>
-                    Select what you're looking for
+                Pick what interests you
                 </MText>
             </View>
 

@@ -211,12 +211,11 @@ export default function CreateEventScreen() {
                     />
 
                         <View>
-                        <MText style={styles.label}>Registration Notification(Optional) ?</MText>
+                        <MText style={styles.label}>Registration Notification (Optional)</MText>
                         <InputBox
                         value={""}
                         onChangeText={(e) => { }}
                         placeholder="Fee once payed is non-refundable"
-                        keyboardType="number-pad"
                         placeholderTextColor="#8D8D8D"
                         inputContainer={styles.inputStyle}
                         />
@@ -286,8 +285,8 @@ export default function CreateEventScreen() {
                             <MText style={styles.label}>Currency</MText>
                             <CustomDropdownComponent
                                 data={currencyList}
-                                placeholder=''
-                                value={currency}
+                                placeholder='INR'
+                                value={"INR"}
                                 onChange={(val) => {
                                     setCurrency(val);
                                 }}
@@ -310,7 +309,7 @@ export default function CreateEventScreen() {
                      {Method && 
 
                      <View>
-                     <MText style={styles.label}>Cash Collection Notification ?</MText>
+                     <MText style={styles.label}>Cash Collection Notification</MText>
                         <InputBox
                             value={""}
                             onChangeText={(e) => { }}

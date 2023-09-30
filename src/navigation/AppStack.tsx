@@ -26,6 +26,12 @@ import ImOrganizingScreen from '../screens/EventsScreens/I\'mOrganizing';
 import GroupIOwnScreen from '../screens/groups/GroupIOwn';
 import MostVibrantGroupsScreen from '../screens/groups/MostVibrantGroups';
 import JoinedGroupScreen from '../screens/groups/JoinedGroup';
+import RegisterScreen from '../screens/auth/RegisterScreen';
+import { VerifyOtpScreen } from '../screens/auth';
+import ForgotPasswordScreen from '../screens/auth/ForgotPassword';
+import WelcomeScreen from '../screens/welcome/WelcomeScreen';
+import CategoriesScreen from '../screens/categories/CaegoriesScreen';
+import InterestsScreen from '../screens/interests/InterestsScreen';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +51,36 @@ const AppStack = () => {
                 name="LoginScreen"
                 component={LoginScreen}
             />
+
+<Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+      />
+
+      <Stack.Screen
+        name="VerifyOtpScreen"
+        component={VerifyOtpScreen}
+      />
+
+      <Stack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+      />
+
+      <Stack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+      />
+
+      <Stack.Screen
+        name="CategoriesScreen"
+        component={CategoriesScreen}
+      />
+
+      <Stack.Screen
+        name="InterestsScreen"
+        component={InterestsScreen}
+      />
             <Stack.Screen
                 name="EventDetailScreen"
                 component={EventDetailScreen}

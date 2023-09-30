@@ -9,6 +9,7 @@ import { Styles } from '../../styles'
 import { Size } from '../../constants'
 import CustomScroll from '../../components/CustomScroll'
 import { getAllGroupsAPI } from '../../API/api'
+import MyGroups from '../home/components/MyGroups'
 
 export default function GroupsScreen() {
     const [groupsData, setGroupsData] = useState([]);
@@ -24,7 +25,7 @@ export default function GroupsScreen() {
     return (
         <Container>   
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-            <GroupsHeader />
+            <GroupsHeader pageName={"My Groups"} />
 
             <CustomScroll>
                 {groupsData?.map((item: any, indx) => {

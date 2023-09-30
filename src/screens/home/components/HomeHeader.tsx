@@ -24,19 +24,19 @@ export default function HomeHeader({ searchInputCallback, onFilterPress }: HomeH
                     <Svg.MenuIcon />
                 </TouchableOpacity>
 
+                <TouchableOpacity >
+                    <Svg.SamagumIcon />
+                </TouchableOpacity>
+
                 <Row>
-                    <View>
-                        <MText style={styles.CurrentLocation}>
-                            Current Location {' '}
-                            <Svg.DownChevronIcon />
-                        </MText>
-                        <MText style={styles.CurrentLocationVal}>New York, USA</MText>
-                    </View>
+                    <TouchableOpacity>
+                        <Svg.RocketExploreIcon />
+                    </TouchableOpacity>
                 </Row>
             </SpaceBetweenRow>
 
             <SpaceBetweenRow style={styles.searchContainer}>
-                <Svg.SearchIcon width="24" />
+                <Svg.SearchIcon width="24"  />
                 <View style={styles.divider} />
                 <TextInput
                     placeholder='Search.'
@@ -45,12 +45,12 @@ export default function HomeHeader({ searchInputCallback, onFilterPress }: HomeH
                     style={styles.searchInput}
                     onPressIn={searchInputCallback}
                 />
-                <TouchableOpacity onPress={onFilterPress}>
+                {/* <TouchableOpacity onPress={onFilterPress}>
                     <Row>
                         <Svg.FilterIcon />
                         <MText style={styles.Filters}>Filters</MText>
                     </Row>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </SpaceBetweenRow>
 
             <CustomDrawer
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         width: "100%",
         padding: 16,
         backgroundColor: Colors.primary,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
     CurrentLocation: {
         fontSize: 12,
@@ -87,18 +87,20 @@ const styles = StyleSheet.create({
     searchContainer: {
         width: Size.wWidth / 1.1,
         alignSelf: "center",
-        borderRadius: 30,
+        borderRadius: 10,
         height: 51,
-        backgroundColor: "#5D56F3",
+        backgroundColor: "#716BF8",
         paddingHorizontal: 20,
         marginTop: 20,
-        marginBottom: 10
+        marginBottom: 10,
+        justifyContent:"flex-start"
     },
     divider: {
         width: 1,
         height: 20,
         backgroundColor: "#FFF",
-        opacity: 0.2
+        opacity: 0.2,
+        marginHorizontal:10
     },
     searchInput: {
         fontSize: 16,

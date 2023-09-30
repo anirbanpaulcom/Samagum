@@ -24,7 +24,7 @@ export default function UpcomingEventsAll() {
                 setData(res?.data.upcoming_online_events)
             }
         });
-    }); 
+    });
 
     return (
         <Container>

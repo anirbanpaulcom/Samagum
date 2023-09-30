@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Modal,
     StyleSheet,
@@ -14,6 +14,8 @@ import Svg from '../assets/svg';
 import Auth from "../constants/Auth";
 import { useNavigation } from '@react-navigation/native';
 import { LogoutApi } from '../API/new api';
+import HomeScreen from '../screens/home/HomeScreen';
+import { getUserProfile } from '../API/api';
 
 
 
@@ -26,11 +28,40 @@ interface CustomDrawerProps {
 const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
     const navigation = useNavigation();
 
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        getUserProfile((res) => {
+            if (res !== null) {
+                if (res?.success === true) {
+                    setData(res?.data)
+                }
+            }
+        })
+    }, []);
+
    const SignOut = async ()=>{
     await LogoutApi();
     navigation.navigate('LoginScreen');
    }
 
+
+   const HandleSetting = ()=>{
+     navigation.navigate('SettingsScreen');
+   }
+
+   const HandleMygroups = ()=>{
+    navigation.navigate('GroupsScreen');
+  }
+
+  const HandleMyEvents = ()=>{
+    navigation.navigate('ImOrganizingScreen');
+  }
+
+  const HandlePinedEvents = ()=>{
+    navigation.navigate('MyWatchListScreen');
+  }
 
 
     return (
@@ -49,16 +80,18 @@ const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
                     underlayColor="transparent">
                     <View style={styles.modalView}>
                         <Image
-                            source={{ uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80" }}
+                            source={{ uri: data?.image }}
                             style={{ width: 60, height: 60, borderRadius: 100 }}
                         />
-                        <MText style={styles.userName}>Ashfak Sayem</MText>
+                        <MText style={styles.userName}>{data?.first_name + " " + data?.last_name}</MText>
                         <Button
                             title="My Group"
                             mode="text"
                             SvgIcon={<Svg.UserIcon />}
                             textStyle={styles.btnText}
                             style={styles.button}
+                            onPress={HandleMygroups}
+
                         />
 
                         <Button
@@ -67,10 +100,11 @@ const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
                             SvgIcon={<Svg.UserIcon />}
                             textStyle={styles.btnText}
                             style={styles.button}
+                            onPress={HandleMyEvents}
                         />
 
                         <Button
-                            title="Payment"
+                            title="Upgrade Plan"
                             mode="text"
                             SvgIcon={<Svg.PaymentIcon />}
                             textStyle={styles.btnText}
@@ -78,19 +112,12 @@ const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
                         />
 
                         <Button
-                            title="Bookmark"
+                            title="Pinned  Events"
                             mode="text"
                             SvgIcon={<Svg.WishlistIcon />}
                             textStyle={styles.btnText}
                             style={styles.button}
-                        />
-
-                        <Button
-                            title="My Group"
-                            mode="text"
-                            SvgIcon={<Svg.UserIcon />}
-                            textStyle={styles.btnText}
-                            style={styles.button}
+                            onPress={HandlePinedEvents}
                         />
 
                         <Button
@@ -107,6 +134,7 @@ const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
                             SvgIcon={<Svg.SettingsIcon />}
                             textStyle={styles.btnText}
                             style={styles.button}
+                            onPress={HandleSetting}
                         />
 
                         <Button

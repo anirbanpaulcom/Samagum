@@ -77,7 +77,9 @@ import DownArrow from './Vector 20.svg'
 import Twitter from './Group 33528.svg'
 import Pin from './pin-svgrepo-com 1.svg'
 import ClockIcon from './carbon_time.svg';
-import DateIcon from './clarity_date-line.svg'
+import DateIcon from './clarity_date-line.svg';
+import SamagumIcon from './image 1.svg';
+import RocketExploreIcon from './rocket-svgrepo-com 1.svg'
 
 export default {
     HomeIcon,
@@ -160,4 +162,6 @@ export default {
     Pin,
     ClockIcon,
     DateIcon,
+    RocketExploreIcon,
+    SamagumIcon,
 }

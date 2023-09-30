@@ -37,7 +37,7 @@ export default function AttendingEvents({ title, data, navigationPage}: Attendin
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity style={styles.card}
-                            onPress={() => { navigation?.navigate("EventDetailScreen", { eventData: data }); }}
+                            onPress={() => { navigation?.navigate("EventDetailScreen", { data: item }); }}
                         >
                             <View>
                                 <Image

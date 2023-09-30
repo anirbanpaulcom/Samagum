@@ -10,29 +10,25 @@ import MText from '../../components/Text'
 import { StatusBar } from 'react-native'
 import { eventDetailsApi } from '../../API/new api'
 
-export default function EventDetailScreen() {
-    const [eventData, setEventData] = useState([]);
+export default function EventDetailScreen({data}) {
 
-    useEffect(() => {
-        eventDetailsApi((result) => {
-            if (result !== null) {
-                setEventData(result?.data)
-            }
-        })
-    },
-    );
 
+    useEffect(()=>{
+        console.log(data,"ooooooooooooooooooooooooooooooooooooooooooooooooooo")
+    })
 
 
 
     return (
         <CustomScroll>
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+
+
             {/* Background Image */}
-            <EventDetailsHeader eventData={eventData} />
+            <EventDetailsHeader data={data} />
 
             {/* Detail Info */}
-            <EventDetailsTitle title={eventData?.title} />
+            <EventDetailsTitle title={data?.title} />
 
             {/* About Event */}
             <EventDetailsAbout />
