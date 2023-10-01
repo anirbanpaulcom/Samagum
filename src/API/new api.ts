@@ -2,7 +2,6 @@ import Auth from "../constants/Auth";
 
 
 export const addBioAPI = async ( data :any) => {
-    try {
       const token = await Auth.getLocalStorageData("token");
   
       if (token !== null) {
@@ -10,52 +9,50 @@ export const addBioAPI = async ( data :any) => {
           'Authorization': `Bearer ${token}`
         };
   
-        const response = await axios.post(
-            "https://dev.samagum.com/api/v1/account/update-details",
-            data,
-          { headers }
-        );
-  
-        console.log('\n\n addBioAPI result:', response.data);
-      return response.data;
-    } else {
-      console.error('Token not found');
-      return null;
-    }
-  } catch (error) {
-    console.error('\n\n addBioAPI error:', error);
-    return null;
-  }
+var formdata = new FormData();
+formdata.append("bio", data ? data : '');
+
+var requestOptions = {
+  method: 'POST',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
 };
+
+fetch("https://dev.samagum.com/api/v1/account/update-details", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+      }
+    }
+
+
 
 
 export const getEditProfileDetails = async (data: any) => {
-try {
+
 const token = await Auth.getLocalStorageData("token");
   
       if (token !== null) {
         const headers = {
           'Authorization': `Bearer ${token}`,
         };
-  
-        const response = await axios.post(
-            "https://dev.samagum.com/api/v1/account/personal-details",
-            data,
-          { headers }
-        );
-  
-        console.log('\n\n getEditProfileDetails result:', response.data);
-      return response.data;
-    } else {
-      console.error('Token not found');
-      return null;
-    }
-  } catch (error) {
-    console.error('\n\n getEditProfileDetails error:', error);
-    return null;
-  }
+
+var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
 };
 
+fetch("https://dev.samagum.com/api/v1/account/personal-details", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+      }}
 
 export const updateUserProfile = async (data:any ,callBack: (result: any) => void) => {
 
@@ -72,9 +69,9 @@ formdata.append("email", data?.email);
 formdata.append("phone", data?.phone);
 formdata.append("birthdate", data?.dob);
 formdata.append("gender", data?.gender);
-formdata.append("profile_picture", null);
-formdata.append("username", null);
-formdata.append("timezone", null);
+formdata.append("profile_picture", '');
+formdata.append("username", data?.userName);
+formdata.append("timezone", data?.timezone);
 formdata.append("bio", null);
 
 var requestOptions = {
@@ -85,14 +82,20 @@ var requestOptions = {
 };
 
 fetch("https://dev.samagum.com/api/v1/account/update-details", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result, "zzzzzzzzzzzzzzz"))
-  .catch(error => console.log('error', error));
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
 
   }
 
   
-export const eventDetailsApi = async (callBack: (result: any) => void) => {
+export const eventDetailsApi = async (id:any,callBack: (result: any) => void) => {
     
       const token = await Auth.getLocalStorageData("token");
       
@@ -101,6 +104,8 @@ export const eventDetailsApi = async (callBack: (result: any) => void) => {
         const headers = {
           'Authorization': `Bearer ${token}`
       };
+
+      console.log(id,"sssssssssssdfff00")
   
         var formdata = new FormData();
         
@@ -111,10 +116,16 @@ export const eventDetailsApi = async (callBack: (result: any) => void) => {
           redirect: 'follow'
         };
         
-        fetch("https://dev.samagum.com/api/v1/group/event/57", requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
+        fetch(`https://dev.samagum.com/api/v1/group/event/${id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          console.log(result);
+          callBack(result); 
+        })
+        .catch(error => {
+          console.log('error', error);
+          callBack(null); 
+        });
 }
 }
 
@@ -145,9 +156,15 @@ export const changePasswordApi = async (currentPassword: any,newPassword: any,ca
     };
     
     fetch("https://dev.samagum.com/api/v1/account/update-password", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => {
+      console.log(result);
+      callBack(result); 
+    })
+    .catch(error => {
+      console.log('error', error);
+      callBack(null); 
+    });
  }
 }
 
@@ -199,9 +216,15 @@ var requestOptions = {
 };
 
 fetch("https://dev.samagum.com/api/v1/group/create_event?group=testing-api", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
 
     }
 
@@ -228,14 +251,20 @@ var requestOptions = {
 };
 
 fetch("https://dev.samagum.com/api/v1/group/join", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
 
 }}
 
 
-export const AddSocialMediaApi = async ( fbLink: any,TwLink: any,linkedinLink: any,callBack: (result: any) => void) => {
+export const AddSocialMediaApi = async ( fbLink: any,TwLink: any,linkedinLink: any,instagramLink: any,callBack: (result: any) => void) => {
 
   const token = await Auth.getLocalStorageData("token");
 
@@ -246,10 +275,11 @@ export const AddSocialMediaApi = async ( fbLink: any,TwLink: any,linkedinLink: a
   };
 
 var formdata = new FormData();
-formdata.append("facebook", fbLink);
-formdata.append("instagram", "li");
-formdata.append("twitter", TwLink);
-formdata.append("linkedin", linkedinLink);
+formdata.append('facebook', fbLink ? fbLink : '');
+formdata.append('instagram', instagramLink ? instagramLink : '');
+formdata.append('twitter', TwLink ? TwLink : '');
+formdata.append('linkedin', linkedinLink ? linkedinLink : '');
+
 
 var requestOptions = {
   method: 'POST',
@@ -259,9 +289,13 @@ var requestOptions = {
 };
 
 fetch("https://dev.samagum.com/api/v1/account/update-social", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+})
+.catch(error => {
+  console.log('error', error);
+});
   }
 }
 
@@ -285,9 +319,15 @@ var requestOptions = {
 
 
 fetch("https://dev.samagum.com/api/v1/signout", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
 
 
   await Auth.setLocalStorageData("token", null);
@@ -317,9 +357,15 @@ var requestOptions = {
 };
 
 fetch("https://dev.samagum.com/api/v1/my_events/from_groups_you_organize", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
 
   }}
 
@@ -345,9 +391,15 @@ export const MyGroupsApi = async (callBack: (result: any) => void) => {
     };
     
     fetch("https://dev.samagum.com/api/v1/groups?tab=organizer&page=1", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => {
+      console.log(result);
+      callBack(result); 
+    })
+    .catch(error => {
+      console.log('error', error);
+      callBack(null); 
+    });
 }
 }
 
@@ -363,10 +415,10 @@ export const createEventAPI = async (data: any, callBack: (result: any) => void)
     var formData = new FormData(); 
 
     formData.append("event_title", data?.title);
-    formData.append("event_start_date", "2024-12-01");
-    formData.append("event_start_time", "12:25");
-    formData.append("event_end_date", "2024-12-02");
-    formData.append("event_end_time", "11:00");
+    formData.append("event_start_date", data?.startDate);
+    formData.append("event_start_time", data?.startTime);
+    formData.append("event_end_date", data?.endDate);
+    formData.append("event_end_time", data?.endTime);
     formData.append("event_description", data?.description);
     formData.append("event_is_online", data.isOnlineEvent ? 1 : 0);
     formData.append("event_online_meeting_link", "https://google.com");
@@ -401,19 +453,15 @@ export const createEventAPI = async (data: any, callBack: (result: any) => void)
     };
 
     fetch("https://dev.samagum.com/api/v1/group/create_event?group=demo-group-from-api-1", requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => {
+      console.log('error', error);
+    });
   }
 };
-
-
-
-
-
-
 
 export const notification = async (data: any, callBack: (result: any) => void) => {
   const token = await Auth.getLocalStorageData("token");
@@ -434,8 +482,136 @@ var requestOptions = {
 };
 
 fetch("https://dev.samagum.com/api/v1/profile/notifications", requestOptions)
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
+
+}}
+
+
+
+export const CreateGroupApi = async (details: any, callBack: (result: any) => void) => {
+  const token = await Auth.getLocalStorageData("token");
+
+  if (token !== null) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+
+
+var formdata = new FormData();
+formdata.append("group_name", details?.name);
+formdata.append("group_describe", details?.description);
+formdata.append("selected_interests[]", details?.selectTopics );
+formdata.append("selected_interests[]", "372");
+formdata.append("place_name", "Mumbai Central, Mumbai, Maharashtra, India");
+formdata.append("location_name", "Mumbai Central, Mumbai, Maharashtra, India");
+formdata.append("formatted_address", "Mumbai Central, Mumbai, Maharashtra, India");
+formdata.append("state", "Maharashtra");
+formdata.append("city", "Konkan Division");
+formdata.append("country", "India");
+formdata.append("postal_code", "");
+formdata.append("lat", "18.9690247");
+formdata.append("lng", "72.8205292");
+
+var requestOptions = {
+  method: 'POST',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/create-group", requestOptions)
+.then(response => response.text())
+.then(result => {
+  console.log(result);
+})
+.catch(error => {
+  console.log('error', error);
+});
+
+  }}
+
+
+
+  export const SearchTopicsApi = async (data: any, callBack: (result: any) => void) => {
+    const token = await Auth.getLocalStorageData("token");
+  
+    if (token !== null) {
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+      };
+  
+      var requestOptions = {
+        method: 'GET',
+        headers: headers,
+        redirect: 'follow'
+      };
+  
+      fetch("https://dev.samagum.com/api/v1/search/topics?search=Technology", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+          console.log('error', error);
+        });
+    }
+  }
+
+  export const topicsListApi = async (callBack: (result: any) => void) => {
+    const token = await Auth.getLocalStorageData("token");
+  
+    if (token !== null) {
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+      };
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/topics/list", requestOptions)
+.then(response => response.json())
+.then(result => {
+  console.log(result);
+  callBack(result); 
+})
+.catch(error => {
+  console.log('error', error);
+  callBack(null); 
+});
+    }}
+
+
+export const getSocialDEtailsApi = async (callBack: (result: any) => void) => {
+      const token = await Auth.getLocalStorageData("token");
+    
+      if (token !== null) {
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+        };
+var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  headers: headers,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.samagum.com/api/v1/account/general/social", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 
-}}
+
+  }    }

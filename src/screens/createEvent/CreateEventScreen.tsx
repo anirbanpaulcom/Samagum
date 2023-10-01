@@ -17,6 +17,7 @@ import { margin } from '../../styles/mixins'
 import { createEventAPI } from '../../API/new api'
 import UploadFile from './UploadFile'
 import { launchImageLibrary } from 'react-native-image-picker';
+import Toast from 'react-native-simple-toast';
 
 
 export const currencyList = [
@@ -76,14 +77,20 @@ export default function CreateEventScreen() {
             currency: currency,
             Method: Method,
         };
-        
-       createEventAPI(data);
+    if(data){
+    await createEventAPI(data, (result)=>{
+        if (result.success === true) {
+            console.log(result);
+            navigation.goBack();
+          } else {
+            Toast.show("Please Enter Currect Information", 1000)
+          }
+    })}
     };
 
     
    const openGallary = async()=>{
     const image = await launchImageLibrary(ImageOption);
-    console.log(image,"00000000000000000000000");
     setEventImage(image.assets[0].uri);
    }
 

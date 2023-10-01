@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StatusBar, StyleSheet, TextInput, TouchableOpacity, ImageBackground } from 'react-native'
 import React, { useState } from 'react'
 import CustomScroll from '../../../components/CustomScroll'
 import ImageButton from '../../../components/ImageButton'
@@ -9,6 +9,9 @@ import InputBox from '../../../components/InputBox';
 import Svg from '../../../assets/svg';
 import { Button } from 'react-native-paper';
 import { Colors } from '../../../styles';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Image } from 'react-native-svg';
+
 
 interface StepThreeProps {
     steps: number;
@@ -16,12 +19,30 @@ interface StepThreeProps {
     visible: boolean;
 }
 
-export default function StepThree({ steps, setSteps, visible }: StepThreeProps) {
+export const ImageOption ={
+    title: 'Select Image',
+    type: 'library',
+    options: {
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+}
+
+export default function StepThree({ details, setDetails, steps, setSteps, visible }: StepThreeProps) {
     if (!visible) return null;
 
     const [name, setName] = useState("");
+    const [eventImage, setEventImage] = useState(null);
+
+    const openGallary = async()=>{
+        const image = await launchImageLibrary(ImageOption);
+        console.log(image,"00000000000000000000000");
+        setEventImage(image.assets[0].uri);
+       }
 
     function handleSubmit() {
+        setDetails({ ...details, name, eventImage });
         setSteps(4)
     }
 
@@ -52,6 +73,24 @@ export default function StepThree({ steps, setSteps, visible }: StepThreeProps) 
                         inputContainer={{ backgroundColor: "#F9F9F9" }}
                     />
                 </View>
+
+                <View style={{ padding: 16 }}>
+    <MText style={styles.label}>Upload Group Picture</MText>
+    <TouchableOpacity onPress={openGallary} style={styles.fileContainer}>
+        {eventImage ? (
+            <ImageBackground
+                source={{ uri: eventImage }}
+                style={{ width: "100%", height: "100%",borderRadius: 14 }}
+            />
+        ) : (
+            <>
+                <Svg.UploadFilledIcon />
+                <Text style={styles.BrowseFile}>Browse File</Text>
+            </>
+        )}
+    </TouchableOpacity>
+    </View>
+                
             </CustomScroll>
 
             <ImageButton
@@ -96,5 +135,28 @@ const styles = StyleSheet.create({
         marginBottom: 9,
         marginTop: 8,
         marginHorizontal: 18
-    }
+    },
+    label: {
+        fontSize: 12,
+        fontWeight: "500",
+        color: "#120D26",
+        marginBottom: -5,
+        marginTop: 16
+    },
+    BrowseFile: {
+        fontSize: 14,
+        fontWeight: "400",
+        color: "#747688",
+    },
+    fileContainer: {
+        borderWidth: 1,
+        borderColor: "#B8B7C8",
+        width: "100%",
+        height: 130,
+        backgroundColor: "#FAFAFA",
+        borderRadius: 14,
+        marginTop: 10,
+        justifyContent:"center",
+        alignItems:"center"
+    },
 })

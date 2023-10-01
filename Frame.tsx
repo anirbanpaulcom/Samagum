@@ -1,27 +1,31 @@
 import * as React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Color, FontFamily, FontSize, Border } from "./GlobalStyles";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Svg from "./src/assets/svg";
+import { useNavigation } from "@react-navigation/native";
 
 type FrameType = {
     onClose?: () => void;
 };
 
 const Frame = ({ onClose }: FrameType) => {
+
+    const navigation = useNavigation();
     return (
-        <View style={styles.helloAshfakParent}>
-            <Text style={[styles.helloAshfak, styles.helloTypo]}>Create Event</Text>
-            <Text style={[styles.helloAshfak1, styles.helloTypo]}>Create Group</Text>
-            {/* <Image
-                style={[styles.frameChild, styles.frameChildLayout]}
-                resizeMode="cover"
-                source={require("../assets/group-18172.png")}
-            /> */}
-            {/* <Image
-                style={[styles.elgroupIcon, styles.frameChildLayout]}
-                resizeMode="cover"
-                source={require("../assets/elgroup.png")}
-            /> */}
-            <View style={styles.frameItem} />
+        <View style={{ height:"100%",width:"100%", alignItems:"center", justifyContent:"flex-end",paddingBottom:110}}>
+
+            <View style={{ borderColor:"#120D26",borderWidth:0.5, borderRadius:10}}>
+            <TouchableOpacity onPress={() => navigation.navigate("CreateEventScreen")} style={{width:150, height:50,flexDirection:"row", justifyContent:"center",alignItems:"center"}}>
+                <Svg.EventIcon />
+                <Text style={{fontSize:15,fontWeight:500, paddingLeft:5,  color: "#120D26"}}>Create Event</Text>
+            </TouchableOpacity>
+            <View style={{ borderColor:"#F0F0F0",borderWidth:0.5, borderRadius:10}}></View>
+            <TouchableOpacity onPress={() => navigation.navigate("CreateGroupScreen")} style={{width:150, height:50,flexDirection:"row", justifyContent:"center",alignItems:"center"}}>
+                <Svg.GroupIcon />
+                <Text style={{fontSize:15,fontWeight:500,paddingLeft:5, color: "#120D26"}}>Create Group</Text>
+            </TouchableOpacity>
+            </View>
         </View>
     );
 };

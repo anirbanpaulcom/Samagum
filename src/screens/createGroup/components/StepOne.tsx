@@ -14,13 +14,15 @@ interface StepOneProps {
     visible: boolean;
 }
 
-export default function StepOne({ steps, setSteps, visible }: StepOneProps) {
+export default function StepOne({ details, setDetails,steps, setSteps, visible }: StepOneProps) {
     if (!visible) return null;
 
     const [location, setLocation] = useState("");
 
     function handleSubmit() {
+        setDetails({ ...details, location });
         setSteps(2)
+      
     }
 
     return (

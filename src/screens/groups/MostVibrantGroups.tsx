@@ -25,7 +25,7 @@ export default function MostVibrantGroupsScreen({data}) {
                     return (
                         <Row style={styles.groupCard} key={indx}>
                             <Image
-                                source={images.groupCardImage} resizeMode="stretch"
+                                source={{uri: item?.image}} resizeMode="stretch"
                                 style={{ width: 70, height: 90 }}
                             />
                             <View style={{ paddingHorizontal: 8, width: Size.wWidth / 1.1 - 80 }}>

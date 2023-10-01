@@ -37,7 +37,7 @@ export default function AttendingEvents({ title, data, navigationPage}: Attendin
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity style={styles.card}
-                            onPress={() => { navigation?.navigate("EventDetailScreen", { data: item }); }}
+                            onPress={() => { navigation?.navigate("EventDetailScreen", { data: item.id }); }}
                         >
                             <View>
                                 <Image
@@ -49,7 +49,7 @@ export default function AttendingEvents({ title, data, navigationPage}: Attendin
                             <View style={{ paddingHorizontal: 8 }}>
                                 <MText style={styles.title}>
                                     {/* International Band Mu... */}
-                                    {item?.title}
+                                    {item?.title} 
                                 </MText>
                                 <MText style={myStyles.text}>Close Friends Group</MText>
                                 {isOnline &&

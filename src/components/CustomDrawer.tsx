@@ -56,7 +56,10 @@ const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
   }
 
   const HandleMyEvents = ()=>{
-    navigation.navigate('ImOrganizingScreen');
+    navigation.navigate('MyEventsScreen');
+  }
+  const HandleUpgrade = ()=>{
+    navigation.navigate('UpgraderProScreen');
   }
 
   const HandlePinedEvents = ()=>{
@@ -109,6 +112,8 @@ const CustomDrawer = ({ modalVisible, callback }: CustomDrawerProps) => {
                             SvgIcon={<Svg.PaymentIcon />}
                             textStyle={styles.btnText}
                             style={styles.button}
+                            onPress={HandleUpgrade}
+
                         />
 
                         <Button
