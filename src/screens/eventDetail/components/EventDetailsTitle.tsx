@@ -1,24 +1,30 @@
 import { View, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import MText from '../../../components/Text'
 import { Row } from '../../../components/Wrapper'
 import Svg from '../../../assets/svg'
 import { Colors, Styles } from '../../../styles'
 import images from '../../../assets/images'
 
-export default function EventDetailsTitle({ title }) {
+export default function EventDetailsTitle({ data }) {
+
+    useEffect(()=>{
+        console.log(data,"dasssssssssssssss")
+    })
 
     return (
+        
         <View style={{ padding: 16 }}>
-            <MText style={styles.title}>{title}</MText>
 
+{data && <>
+            <MText style={styles.title}>{data?.title}</MText>
             <Row style={Styles.marginTopXL}>
                 <View style={styles.iconbg}>
                     <Svg.BlueCalanderIcon />
                 </View>
                 <View style={Styles.horizontalMarginM}>
-                    <MText style={styles.date}>14 December, 2023</MText>
-                    <MText style={styles.time}>Tuesday, 4:00PM - 9:00PM</MText>
+                    <MText style={styles.date}>{data?.start_date}  {data?.start_time}</MText>
+                    <MText style={styles.time}>{data?.end_date}   {data?.end_time}</MText>
                 </View>
             </Row>
 
@@ -27,7 +33,7 @@ export default function EventDetailsTitle({ title }) {
                     <Svg.LiveBlueIcon />
                 </View>
                 <View style={Styles.horizontalMarginM}>
-                    <MText style={styles.date}>Online Event</MText>
+                    <MText style={styles.date}>{data.is_online ? "Online" : "Offline"}</MText>
                 </View>
             </Row>
 
@@ -36,7 +42,7 @@ export default function EventDetailsTitle({ title }) {
                     <MText style={styles.dollar}>$</MText>
                 </View>
                 <View style={Styles.horizontalMarginM}>
-                    <MText style={styles.date}>Free</MText>
+                    <MText style={styles.date}>{data.fee_amount ? data.fee_amount : "Free"}</MText>
                 </View>
             </Row>
 
@@ -50,6 +56,7 @@ export default function EventDetailsTitle({ title }) {
                     <MText style={styles.designation}>India - Public</MText>
                 </View>
             </Row>
+               </> }
         </View>
     )
 }

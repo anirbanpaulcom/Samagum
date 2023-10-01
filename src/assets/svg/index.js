@@ -80,6 +80,9 @@ import ClockIcon from './carbon_time.svg';
 import DateIcon from './clarity_date-line.svg';
 import SamagumIcon from './image 1.svg';
 import RocketExploreIcon from './rocket-svgrepo-com 1.svg'
+import EventIcon from "./event1.svg";
+import GroupIcon from "./Group 18172 (1).svg";
+import infoIcon from './information-button.png'
 
 export default {
     HomeIcon,
@@ -164,4 +167,7 @@ export default {
     DateIcon,
     RocketExploreIcon,
     SamagumIcon,
+    EventIcon,
+    GroupIcon,
+    infoIcon
 }

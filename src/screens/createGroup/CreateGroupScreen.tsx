@@ -10,6 +10,10 @@ import StepFour from './components/StepFour'
 export default function CreateGroupScreen() {
     const [steps, setSteps] = useState(1);
 
+    const [details, setDetails] = useState({});
+
+
+
     return (
         <Container>
             <StatusBar translucent backgroundColor="#FFF" barStyle="dark-content" />
@@ -19,24 +23,32 @@ export default function CreateGroupScreen() {
                 steps={steps}
                 setSteps={setSteps}
                 visible={steps === 1}
+                details={details}
+                setDetails={setDetails}
             />
 
             <StepTwo
                 steps={steps}
                 setSteps={setSteps}
                 visible={steps === 2}
+                details={details}
+                setDetails={setDetails}
             />
 
             <StepThree
                 steps={steps}
                 setSteps={setSteps}
                 visible={steps === 3}
+                details={details}
+                setDetails={setDetails}
             />
 
             <StepFour
                 steps={steps}
                 setSteps={setSteps}
                 visible={steps === 4}
+                details={details}
+                setDetails={setDetails}
             />
         </Container>
     )

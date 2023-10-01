@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import CustomScroll from '../../../components/CustomScroll'
 import ImageButton from '../../../components/ImageButton'
 import MText from '../../../components/Text';
@@ -9,6 +9,7 @@ import InputBox from '../../../components/InputBox';
 import Svg from '../../../assets/svg';
 import { Button } from 'react-native-paper';
 import { Colors } from '../../../styles';
+import { SearchTopicsApi, topicsListApi } from '../../../API/new api';
 
 interface StepTwoProps {
     steps: number;
@@ -16,12 +17,23 @@ interface StepTwoProps {
     visible: boolean;
 }
 
-export default function StepTwo({ steps, setSteps, visible }: StepTwoProps) {
+export default function StepTwo({details, setDetails,steps, setSteps, visible }: StepTwoProps) {
     if (!visible) return null;
 
-    const [location, setLocation] = useState("");
+    const [topics, setTopics] = useState([]);
+    const [selectTopics, setSelectTopics] = useState([]);
+
+    useEffect(() => {
+        topicsListApi((res) => {
+            if (res !== null) {
+                setTopics(res?.data);
+            }
+        });
+
+    }, []);
 
     function handleSubmit() {
+        setDetails({ ...details, topics });
         setSteps(3)
     }
 
@@ -42,10 +54,10 @@ export default function StepTwo({ steps, setSteps, visible }: StepTwoProps) {
                         Choose a few topics that describe your group's interests
                     </MText>
                     <InputBox
-                        value={location}
+                        value={selectTopics}
                         autoCapitalize="none"
                         onChangeText={(val) => {
-                            setLocation(val)
+                            setSelectTopics(val)
                         }}
                         placeholder='Search'
                         placeholderTextColor="#8D8D8D"
@@ -53,30 +65,22 @@ export default function StepTwo({ steps, setSteps, visible }: StepTwoProps) {
                         inputContainer={{ backgroundColor: "#F9F9F9" }}
                     />
 
-
-                    <View style={styles.container}>
-                        {
-                            [
-                                "Supper Club",
-                                "Liberta, Di Informazione",
-                                "Bilingual Spanish/English",
-                                "New York",
-                                "House Church",
-                                "Novel Writing",
-                                "New Moms",
-                                "Social Activism",
-                            ].map((item: any, indx: number) => {
-                                return (
-                                    <Button key={indx} style={styles.button}
-                                        labelStyle={styles.buttonText}
-                                        onPress={() => { }}
-                                    >
-                                        {item}
-                                    </Button>
-                                );
-                            })
-                        }
-                    </View>
+                    <ScrollView style={{ flex: 1 }}>
+                        <View style={styles.container}>
+                            {
+                                topics && topics.map((item: any, indx: number) => {
+                                    return (
+                                        <Button key={indx} style={styles.button}
+                                            labelStyle={styles.buttonText}
+                                            onPress={() => { }}
+                                        >
+                                            {item?.name}
+                                        </Button>
+                                    );
+                                })
+                            }
+                        </View>
+                    </ScrollView>
                 </View>
             </CustomScroll>
 
@@ -107,7 +111,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         flexWrap: "wrap",
-        // marginLeft: 18
     },
     button: {
         borderRadius: 5,

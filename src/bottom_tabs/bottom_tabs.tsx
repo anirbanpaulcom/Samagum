@@ -11,6 +11,7 @@ import UserProfile from '../screens/profile/UserProfile';
 import CreateEventScreen from '../screens/createEvent/CreateEventScreen';
 import CreateGroupScreen from '../screens/createGroup/CreateGroupScreen';
 import GroupDetailsScreen from '../screens/groupDetails/GroupDetailsScreen';
+import Frame from '../../Frame';
 
 
 const Tab = createBottomTabNavigator();
@@ -74,7 +75,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="CreateTab"
-        component={CreateEventScreen}
+        component={Frame}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => {

@@ -5,12 +5,12 @@ import { Row, SpaceBetweenRow } from '../../../components/Wrapper'
 import images from '../../../assets/images'
 import { Styles } from '../../../styles'
 
-export default function EventDetailsAbout() {
+export default function EventDetailsAbout({data}) {
     return (
         <View style={styles.container}>
             <MText style={styles.title}>About Event</MText>
             <MText style={styles.subTitle}>
-                Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...
+                {data?.description}
             </MText>
 
             <SpaceBetweenRow style={{ marginTop: 40 }}>

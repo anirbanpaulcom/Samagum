@@ -1,33 +1,46 @@
-import { View, Text, StatusBar, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StatusBar, StyleSheet, TextInput,TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Container } from '../../components/Wrapper'
+import { Container, Row } from '../../components/Wrapper'
 import SettingsHeader from '../settings/container/SettingsHeader'
 import MText from '../../components/Text'
 import { Colors } from '../../styles'
 import { Button } from 'react-native-paper'
 import ImageButton from '../../components/ImageButton'
 import { changePasswordApi } from '../../API/new api'
+import Svg from '../../assets/svg'
+import { useNavigation } from '@react-navigation/native'
+import Toast from 'react-native-simple-toast';
 
 export default function ChangePasswordScreen() {
+    const navigation = useNavigation();
+
 
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [repeatNewPassword, setRepeatNewPassword] = useState('');
-
+    const [showInfo, setShowInfo] = useState(false);
        
     const handleChangePassword = async()=>{
         if(newPassword === repeatNewPassword){
         await changePasswordApi(currentPassword,newPassword, (result)=>{
-            if (result !== null) {
+            if (result.success === true) {
                 console.log('change successfully:', result);
+                navigation.goBack();
               } else {
-                console.error('not changed');
+                Toast.show("Please enter Currect Information", 1000)
               }
         })
         }else{
-            console.log('not same');
+            Toast.show(" New Password isn't Same", 1000)
         }
 
+    }
+
+    const toggleinfo =()=>{
+        if(showInfo === true)
+       setShowInfo(false);
+       else 
+       setShowInfo(true);
     }
 
     
@@ -38,11 +51,18 @@ export default function ChangePasswordScreen() {
             <SettingsHeader title='' />
 
             <View style={{ paddingHorizontal: 20 }}>
+                <Row>
                 <MText style={styles.title}>Change Password</MText>
+                   <TouchableOpacity onPress={toggleinfo}  style={[styles.title, {marginLeft:10, justifyContent:"center", alignItems:"center"}]}>
+                        <Svg.DownArrow />
+                  </TouchableOpacity>
+                </Row>
+
+              {showInfo &&   
                 <MText style={styles.subTitle}>
                     Your password must be at least six characters and should include a combination of numbers, letters and special characters (!$@%).
                 </MText>
-
+              }
                 <ChangePasswordInput
                     placeholder='Current password'
                     onChange={(text) => { setCurrentPassword(text)}}

@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, TextInput, ImageBackground} from 'react-native'
-import React, { useState } from 'react' 
+import React, { useEffect, useState } from 'react' 
 import images from '../../../assets/images'
 import MText from '../../../components/Text'
 import Button from '../../../components/Button';
@@ -8,11 +8,23 @@ import { Row } from '../../../components/Wrapper';
 import { MyList } from '../../interests/components/SearchContainer';
 import { TouchableOpacity } from 'react-native';
 import { Colors, Styles } from '../../../styles';
-import { addBioAPI } from '../../../API/new api';
+import { addBioAPI, getEditProfileDetails, getSocialDEtailsApi } from '../../../API/new api';
 import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import svg from '../../../assets/svg';
 
 // import { Button } from 'react-native-paper'
+
+
+export const ImageOption ={
+    title: 'Select Image',
+    type: 'library',
+    options: {
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+}
 
 interface ProfileInfoProps {
     btnText: string;
@@ -27,7 +39,25 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
     
     const [newBio, setNewBio] = useState('');
     const [bioField, setBioField] = useState(false);
-   
+    const [socialLink, setSocialLink] = useState('');
+    const [image, setImage] = useState('');
+
+
+
+
+    const openGallary = async()=>{
+        const image = await launchImageLibrary(ImageOption);
+        setImage(image.assets[0].uri);
+       }
+
+
+    useEffect(() => {
+        getSocialDEtailsApi((res) => {
+            if (res !== null) {
+                setSocialLink(res?.data)
+            }
+        });
+    })
 
     const handleOpenAbout = () =>{
         setBioField(true);
@@ -58,7 +88,7 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
                     style={styles.profile}
                 >
                     <TouchableOpacity style={styles.edit} onPress={() => { }}>
-                        <Svg.EditPencilIcon />
+                        <Svg.EditPencilIcon onPress={openGallary}/>
                     </TouchableOpacity>
                 </ImageBackground>
                 )
@@ -67,7 +97,7 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
                     style={styles.profile}
                 >
                     <TouchableOpacity style={styles.edit} onPress={() => { }}>
-                        <Svg.EditPencilIcon />
+                        <Svg.EditPencilIcon  onPress={openGallary}/>
                     </TouchableOpacity>
                 </ImageBackground>
             )
@@ -142,15 +172,32 @@ export default function ProfileInfo({ btnIcon, btnText, data, onPress }: Profile
             </Row>
 
         <Row>
+           
         <MText style={styles.bio}>Social Links</MText>
         <TouchableOpacity style={[styles.infoedit]} onPress={() => navigation.navigate("SocialLinksScreen")}>
             <Svg.EditPencil/>
         </TouchableOpacity>
         </Row> 
         <Row style={{ flexGrow: 1, flexWrap: "wrap",justifyContent:"space-around" ,marginHorizontal: 20, marginVertical: 15 }}>
-         <svg.FacebookIcon />
-         <svg.LinkedinIcon />
-         <svg.Twitter />
+
+        {socialLink?.facebook && (
+        <TouchableOpacity onPress={() => Linking.openURL(`https://${socialLink.facebook}`)}>
+        <Svg.FacebookIcon />
+       </TouchableOpacity>
+        )}
+
+       {socialLink?.linkedin && (
+        <TouchableOpacity onPress={() => Linking.openURL(`https://${socialLink.linkedin}`)}>
+           <svg.LinkedinIcon />
+       </TouchableOpacity>
+        )}
+
+       {socialLink?.twitter && (
+        <TouchableOpacity onPress={() => Linking.openURL(`https://${socialLink.linkedin}`)}>
+           <svg.Twitter />
+       </TouchableOpacity>
+        )}
+
          </Row>
         </View>
     )
@@ -164,6 +211,8 @@ const styles = StyleSheet.create({
         marginTop: -50,
         alignSelf: "center",
         borderColor: "blue",
+        
+
     },
     userName: {
         fontSize: 24,

@@ -32,6 +32,11 @@ import ForgotPasswordScreen from '../screens/auth/ForgotPassword';
 import WelcomeScreen from '../screens/welcome/WelcomeScreen';
 import CategoriesScreen from '../screens/categories/CaegoriesScreen';
 import InterestsScreen from '../screens/interests/InterestsScreen';
+import CreateEventScreen from '../screens/createEvent/CreateEventScreen';
+import CreateGroupScreen from '../screens/createGroup/CreateGroupScreen';
+import ExploreScreen from '../screens/Explore/ExploreScreen';
+import UpgraderProScreen from '../screens/createGroup/upgradePro';
+import MyEventsScreen from '../screens/EventsScreens/MyEvents';
 
 const Stack = createStackNavigator();
 
@@ -52,7 +57,7 @@ const AppStack = () => {
                 component={LoginScreen}
             />
 
-<Stack.Screen
+    <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
       />
@@ -172,6 +177,27 @@ const AppStack = () => {
             <Stack.Screen
             name="SocialLinksScreen"
             component={SocialLinksScreen}
+            />
+            <Stack.Screen
+            name="CreateEventScreen"
+            component={CreateEventScreen}
+            />
+            <Stack.Screen
+            name="CreateGroupScreen"
+            component={CreateGroupScreen}
+            />
+
+        <Stack.Screen
+            name="UpgraderProScreen"
+            component={UpgraderProScreen}
+            />
+              <Stack.Screen
+            name="NearbyEventsScreen"
+            component={NearbyEventsScreen}
+            />
+            <Stack.Screen
+            name="MyEventsScreen"
+            component={MyEventsScreen}
             />
         </Stack.Navigator>
     );

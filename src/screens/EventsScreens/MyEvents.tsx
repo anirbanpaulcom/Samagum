@@ -1,5 +1,5 @@
 import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, SpaceBetweenRow } from '../../components/Wrapper'
 import EventsHeader from '../events/container/EventsHeader'
 import images from '../../assets/images'
@@ -10,16 +10,27 @@ import CustomScroll from '../../components/CustomScroll'
 import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Button'
 import Svg from '../../assets/svg'
+import { fetchHomeDataAfterLogin } from '../../API/api'
 
-export default function NearbyEventsScreen() {
+export default function MyEventsScreen() {
     const navigation = useNavigation();
 
-    const [data, setData] = useState([]);
+    const[data, setdata]=useState('');
+
+    useEffect(() => {
+
+        fetchHomeDataAfterLogin((res) => {
+            if (res !== null) {
+                setdata(res?.data.events_from_groups_you_organize)
+            }
+        });
+    })
+
 
     return (
         <Container>
             <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
-            <EventsHeader pageName={"Nearby Events"}/>
+            <EventsHeader pageName={"My Events"}/>
 
             <CustomScroll>
                 {data && data.map((data, indx) => {
@@ -32,7 +43,7 @@ export default function NearbyEventsScreen() {
                             <View style={{ paddingHorizontal: 8, width: Size.wWidth / 1.1 - 115, marginLeft: 5 }}>
                                 <SpaceBetweenRow>
                                     <MText style={styles.dateNTime}>
-                                    {data?.start_date}   {data?.start_time}
+                                        {data.start_date}   {data.start_time}
                                     </MText>
                                     <Button
                                         SvgIcon={<Svg.Pin />}
@@ -41,7 +52,7 @@ export default function NearbyEventsScreen() {
                                     />
                                 </SpaceBetweenRow>
                                 <MText style={styles.groupCardTitle}>
-                                {data?.title}
+                                    {data.title}
                                 </MText>
                                 <Row style={{ marginVertical: 4, marginTop: 8 }}>
                                     <Svg.LocationSmallIcon />

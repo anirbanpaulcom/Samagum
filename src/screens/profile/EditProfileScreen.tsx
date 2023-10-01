@@ -40,7 +40,7 @@ export default function EditProfileScreen() {
 
 
 
-
+    const [userName, setUserName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("")
@@ -49,6 +49,7 @@ export default function EditProfileScreen() {
     const [DOB, setDOB] = useState("");
     const [gender, setGender] = useState("");
     const [phone, setPhone] = useState("");
+    
 
 
     const countriesList: Array<any> = [];
@@ -59,7 +60,7 @@ export default function EditProfileScreen() {
         })
     });
 
-    function handleClick() {
+    function handleClick(){
         if (!email && !phone && !firstName && !lastName && !DOB) {
             Toast.show("Please enter all fields", 1000)
             return;
@@ -73,15 +74,19 @@ export default function EditProfileScreen() {
             gender: gender,
             country: country,
             city: city,
+            timezone: country,
+            userName : userName,
         };
 
         updateUserProfile(data, (res) => {
-            if (res !== null) {
-                    setProfiledata(res?.data)
-                }
-            
-        })
-    }
+            console.log(res,"lllllllllllllllll")
+            if (res.success) {
+                navigation.navigate('UserProfile');
+              } else {
+                Toast.show("Please enter Currect Information")
+            }
+        });
+      }
 
     return (
         <CustomScroll>
@@ -94,12 +99,21 @@ export default function EditProfileScreen() {
             <MText style={{fontSize:15, fontWeight:"400", marginHorizontal:20,}}>General</MText>
 
             <View style={{ marginHorizontal: 20 }}>
+
+            <EditProfileInput
+                    placeholder={profileData?.username || "Enter User Name"}
+                    label='User Name'
+                    value={userName}
+                    onChange={(val) => {
+                        setUserName(val)
+                    }}
+                />
                 <EditProfileInput
-                    placeholder={profileData?.first_name || "Enter Last Name"}
+                    placeholder={profileData?.first_name || "Enter First Name"}
                     label='First Name'
                     value={firstName}
                     onChange={(val) => {
-                        setFirstName(val)
+                    setFirstName(val)
                     }}
                 />
 
@@ -161,16 +175,16 @@ export default function EditProfileScreen() {
                 <MText style={styles.label}>Country</MText>
                 <CustomDropdownComponent
                     data={countriesList}
-                    placeholder='Country'
-                    value={gender}
+                    placeholder={profileData?.country || "Country"}
+                    value={country}
                     onChange={(val) => {
-                        setGender(val);
+                        setCountry(val);
                     }}
                     containerStyles={styles.dropdownContainer}
                 />
 
                 <EditProfileInput
-                    placeholder=''
+                    placeholder={profileData?.city || "City"}
                     label='City'
                     value={city}
                     onChange={(val) => {
@@ -180,27 +194,7 @@ export default function EditProfileScreen() {
 
 <ImageButton
     title="SAVE"
-    onPress={() => {
-        const data = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phone: phone,
-            dob: DOB,
-            gender: gender,
-            country: country,
-            city: city,
-        };
-
-        updateUserProfile(data, (res) => {
-            if (res !== null) {
-                if (res?.success === true) {
-                    setProfiledata(res?.data);
-                }
-            }
-        });
-    }}
-    loading={loading}
+    onPress={() => handleClick()}
 />
 
 

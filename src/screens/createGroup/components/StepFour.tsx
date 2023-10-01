@@ -13,6 +13,8 @@ import CustomRadioButton from '../../../components/CustomRadioButton';
 import { RenderRadioBtn } from '../../settings/LanguagesSettings';
 import { Row } from '../../../components/Wrapper';
 import { RadioButtonUi } from '../../../components/IcUi';
+import { CreateGroupApi } from '../../../API/new api';
+import { useNavigation } from "@react-navigation/native";
 
 interface StepFourProps {
     steps: number;
@@ -20,14 +22,19 @@ interface StepFourProps {
     visible: boolean;
 }
 
-export default function StepFour({ steps, setSteps, visible }: StepFourProps) {
+export default function StepFour({ details, setDetails,steps, setSteps, visible }: StepFourProps) {
     if (!visible) return null;
 
-    const [name, setName] = useState("");
+    const navigation = useNavigation();
+
+
+    const [description, setdescription] = useState("");
     const [checked, setChecked] = React.useState('public');
 
     function handleSubmit() {
-        setSteps(3)
+        setDetails({ ...details, description});
+        navigation.navigate("UpgraderProScreen");
+        CreateGroupApi(details);
     }
 
     return (
@@ -56,10 +63,10 @@ export default function StepFour({ steps, setSteps, visible }: StepFourProps) {
                         3. What will you do at your events?
                     </MText>
                     <InputBox
-                        value={name}
+                        value={description}
                         autoCapitalize="none"
                         onChangeText={(val) => {
-                            setName(val)
+                            setdescription(val)
                         }}
                         placeholder='Please write at least 50 Characters'
                         placeholderTextColor="#8D8D8D"
@@ -90,7 +97,6 @@ export default function StepFour({ steps, setSteps, visible }: StepFourProps) {
 
                     <ImageButton
                         title="Create Your Group"
-                        // style={{ position: "absolute", bottom: 120 }}
                         onPress={handleSubmit}
                     />
                 </View>
