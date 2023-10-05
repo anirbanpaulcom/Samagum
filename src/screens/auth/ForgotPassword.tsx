@@ -24,9 +24,9 @@ const ForgotPasswordScreen = ({ route, navigation }: any) => {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
-                <BackHeader onPress={() => { }} />
+                <BackHeader onPress={() => { navigation.goBack()}} />
                 <View style={styles.mainWrapper}>
-                    <MText style={styles.titleWrapper}>Resset Password</MText>
+                    <MText style={styles.titleWrapper}>Reset Password</MText>
                     <View style={styles.subtitleWrapper}>
                         <MText style={styles.subtitleText}>
                             Please enter your email address to request a password reset

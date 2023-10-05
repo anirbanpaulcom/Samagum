@@ -37,6 +37,7 @@ import CreateGroupScreen from '../screens/createGroup/CreateGroupScreen';
 import ExploreScreen from '../screens/Explore/ExploreScreen';
 import UpgraderProScreen from '../screens/createGroup/upgradePro';
 import MyEventsScreen from '../screens/EventsScreens/MyEvents';
+import signupInformationScreen from '../screens/auth/signupInformation';
 
 const Stack = createStackNavigator();
 
@@ -198,6 +199,10 @@ const AppStack = () => {
             <Stack.Screen
             name="MyEventsScreen"
             component={MyEventsScreen}
+            />
+            <Stack.Screen
+            name="signupInformationScreen"
+            component={signupInformationScreen}
             />
         </Stack.Navigator>
     );

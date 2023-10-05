@@ -38,7 +38,7 @@ const loginList = [
         icon: svg.LinkedinIcon,
     },
     {
-        icon: svg.YahooIcon,
+        icon: svg.MailIcon,
     },
 ]
 
@@ -49,6 +49,18 @@ export default function LoginScreen({ navigation }: any) {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
+    const [openSignin, setOpensignin] = useState(false)
+
+
+
+    const openEmailSignin = ()=>{
+        if(openSignin){
+            setOpensignin(false);
+        }
+        else{
+            setOpensignin(true);
+        }
+    }
 
     const handleLogin = () => {
         if (!phone && !password) {
@@ -113,22 +125,35 @@ export default function LoginScreen({ navigation }: any) {
 
             <Svg.LogoIcon />
 
-            <Row style={{ flexWrap: "wrap", paddingHorizontal: 20, justifyContent: "center" }}>
-                {loginList.map((item, indx) => {
-                    return (
-                        <View style={styles.socialLogin} key={indx}>
-                            <item.icon />
-                        </View>
-                    )
-                })}
+            <Row style={{width:"100%",marginTop:10,paddingHorizontal:10,paddingVertical:10, justifyContent:"space-evenly", alignItems:"center" }}>
+                <TouchableOpacity style={{width:75, height:55, backgroundColor:"#FFFFFF", justifyContent:"center", alignItems:"center", borderRadius:10}}>
+                    <svg.GoogleIcon />
+                </TouchableOpacity>
+                <TouchableOpacity style={{width:75, height:55, backgroundColor:"#FFFFFF", justifyContent:"center", alignItems:"center", borderRadius:10}}>
+                <svg.AppleIcon />
+                </TouchableOpacity>
+                <TouchableOpacity style={{width:75, height:55, backgroundColor:"#FFFFFF", justifyContent:"center", alignItems:"center", borderRadius:10}}>
+                <svg.XXXIcon />
+                </TouchableOpacity>
             </Row>
 
-            <Row style={styles.continueWithEmail}>
-                <Svg.MailIcon />
-                <MText style={styles.label}>Continue With Email</MText>
+            <Row style={{width:"100%",paddingHorizontal:10,paddingVertical:10, justifyContent:"space-evenly" , alignItems:"center" }}>
+            <TouchableOpacity style={{width:75, height:55, backgroundColor:"#FFFFFF", justifyContent:"center", alignItems:"center", borderRadius:10}}>
+                  <svg.FacebookIcon />
+            </TouchableOpacity>
+                <TouchableOpacity style={{width:75, height:55, backgroundColor:"#FFFFFF", justifyContent:"center", alignItems:"center", borderRadius:10}}>
+                <svg.LinkedinIcon />
+                </TouchableOpacity>                
+                <TouchableOpacity onPress={openEmailSignin} style={{width:75, height:55, backgroundColor:"#FFFFFF", justifyContent:"center", alignItems:"center", borderRadius:10}}>
+                <svg.MailIcon />
+                </TouchableOpacity> 
             </Row>
 
-            <MText style={styles.heading}>Sign in</MText>
+        {openSignin &&  
+
+        <View style={{justifyContent:"center", alignItems:"center",width:"100%"}}>
+        
+        <MText style={styles.heading}>Sign in</MText>
 
             <InputBox
                 inputRef={inputRef}
@@ -156,35 +181,36 @@ export default function LoginScreen({ navigation }: any) {
                 LeftIcon={<Svg.LockIcon />}
             />
 
-            <SpaceBetweenRow style={{ width: "100%" }}>
+            <Row style={{ width: "100%", marginTop:10 }}>
+                <View style={{width:"50%", alignItems:"flex-start"}}>
                 <CustomSwitch
                     title="Remember Me"
                     onPress={() => { }}
                 />
-
+                </View>
                 <TouchableOpacity
-                    textStyle={styles.forgotPassword}
                     onPress={() => { navigation?.navigate("ForgotPasswordScreen") }}
+                    style={{width:"50%", alignItems:"flex-end"}}
                 >
-                    <Text>Forgot Password?</Text>
+                    <Text style={{fontWeight:400,color:'#5669FF'}}>Forgot Password?</Text>
                 </TouchableOpacity>
-            </SpaceBetweenRow>
+            </Row>
 
             <ImageButton
                 title="SIGN IN"
                 onPress={handleLogin}
             />
 
-            <Row style={{ paddingLeft: 4, position: "absolute", bottom: 20 }}>
-                <MText style={styles.alreadyAUser}>Don’t have an account?   </MText>
-                <Button
-                    title="Sign up"
-                    textStyle={styles.alreadyLogin}
-                    background='#fff'
-                    style={{ height: 20 }}
-                    onPress={() => { navigation.navigate("RegisterScreen") }}
-                />
+            <Row style={{marginTop:50, justifyContent:"center"}}>
+                <MText style={styles.alreadyAUser}>Don’t have an account?  </MText>
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate("signupInformationScreen") }}
+                >
+                    <Text style={{fontSize:15,fontWeight:400,color:'#5669FF'}}>Sign up</Text>
+                </TouchableOpacity>
             </Row>
+        </View>
+        }
 
             <CustomPanel loading={loading} />
             <CustomLoader loading={loading} />
@@ -205,7 +231,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "500",
         color: "#000",
-        marginTop: 20,
+        marginVertical: 20,
         alignSelf: "flex-start"
     },
     inputStyle: {
