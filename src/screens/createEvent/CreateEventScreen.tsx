@@ -194,7 +194,6 @@ export default function CreateEventScreen() {
                             inputContainer={{width:355, height:130, backgroundColor:"#F9F9F9"}}
                         />
                     </View>
-
                     <MText style={styles.checkTitle}>This is an online event</MText>
                     <Row>
                         <RenderSwitch
